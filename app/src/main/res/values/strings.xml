@@ -1,0 +1,116 @@
+<resources>
+    <string name="app_name">OurApplication_Kohl_Roux_M</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+
+    <string name="title_activity_modify_Inputs">Modify or delete ?</string>
+
+    <string name="title_activity_settings">Settings</string>
+    <string name="title_activity_ListTrajet">List Trajets</string>
+
+
+    <string name="disclaimer" translatable="false">Copyright &#169; 2020\nHES-SO Valais//Wallis Sierre</string>
+    <string name="impressum" translatable="false">644-1 Mobile &amp; Cloud Computing \nPromotion 605_3 / Kohl Mathieu - Roux Matthieu</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="pref_about_text">This application was developed as part of a study project based on the newly released Android Architecture Components</string>
+    <string name="pref_header_about">About (May be, it can not running)</string>
+    <string name="about">About</string>
+    <string name="essence">Gas</string>
+    <string name="fin_du_voyage_save_all">End of the tripe (save all)</string>
+    <string name="nom_du_trajet">Name of the project</string>
+    <string name="date_du_trajet">Date of the ride</string>
+    <string name="save">SAVE</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="pref_select_language">Select your language</string>
+    <string name="pref_summary">Define your preferred language</string>
+    <string name="main_welcome">Welcome</string>
+    <string name="title_activity_about">about</string>
+    <!--
+    This string is used for square devices and overridden by hello_world in
+    values-round/strings.xml for round devices.
+    -->
+    <string name="hello_world">Hello Square World!</string>
+    <string name="new_trajet">New ride</string>
+    <string name="trajet">Ride</string>
+    <string name="map_en_cours">Map in progress</string>
+    <string name="saisie_consommation">Consuption Input</string>
+    <string name="action_logout">action_logout</string>
+    <string name="liste_des_trajets">Liste des trajets</string>
+    <string name="trajetentity_en_cours">trajetEntity en cours</string>
+    <string name="dernier_trajetentity">Dernier trajetEntity</string>
+    <string name="back_stat">back_stat</string>
+    <string name="back_trajet">back_trajet</string>
+    <string name="entrer_la_localisation">Entrer la localisation</string>
+    <string name="entrer_la_d_stination">Entrer la déstination</string>
+    <string name="entrer_la_recharche_batterie">Entrer la recharche batterie</string>
+    <string name="entrer_le_plein_d_essence">Entrer le plein d\'essence</string>
+    <string name="trajet_en_cours">trajet en cours</string>
+    <string name="localisation">Localisation</string>
+    <string name="destination">Destination</string>
+    <string name="recharge_batterie_kw">Batterie charging (kW)</string>
+    <string name="plein_d_essence_l">Refueling (L)</string>
+    <string name="nom_perso_de_la_voiture">Name of the car</string>
+    <string name="consommation">Consuption Input data</string>
+    <string name="newTrip">New Ride</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+    <string name="dimension_pneus">Wheel dimension</string>
+    <string name="battery">Battery</string>
+    <string name="consommation_carburant">Gas Consuption</string>
+    <string name="mod_le_de_voiture">Car model</string>
+    <string name="car_list">Car Gestion</string>
+    <string name="first_fragment_label">first fragment</string>
+    <string name="second_fragment_label">second fragment</string>
+    <string name="delete_car_ride">Deleted car, car and ride of the lost car</string>
+    <string name="warining_car">Warning, the car</string>
+    <string name="model">model</string>
+    <string name="lost_car">will be definitly lost !</string>
+    <string name="delete">Delete</string>
+    <string name="Cars_w_deleted_r">Cars with deleted rides</string>
+    <string name="delete_car_f">deleted car failed</string>
+    <string name="delete_car_s">deleted car succed</string>
+    <string name="cancel">Cancel</string>
+    <string name="list_ride">List of rides</string>
+    <string name="my_car">My Cars</string>
+    <string name="start_app">START APP</string>
+    <string name="start">START</string>
+    <string name="night_mode">Dark Mode</string>
+    <string name="e_night_mode">Enable Dark Mode</string>
+    <string name="car_desc">Cars description</string>
+    <string name="car_data_mod">car data Modified</string>
+    <string name="car_failed_mod">warning, car not modified</string>
+    <string name="modify_car_f">Modify new car : success</string>
+    <string name="modify_car_s">Modify new car: failure</string>
+    <string name="add_car">Add a car</string>
+    <string name="add_car_s">Add a car : success</string>
+    <string name="add_car_f">Add a car : failure</string>
+    <string name="add_car_succes">A new car was created and is ready to go</string>
+    <string name="add_car_failed">Problem the car couldnt be created</string>
+    <string name="not_found">The specified file was not found</string>
+    <string name="create_ride">Create a Ride</string>
+    <string name="battery_and_gas_input">Input of battery level and acutal gas</string>
+    <string name="create_ride_succes">Ride creation : success</string>
+    <string name="create_ride_error">Ride creation : failure</string>
+    <string name="input_error">Input error</string>
+    <string name="long_press">Long press to modify</string>
+    <string name="data_mod">data modified</string>
+    <string name="data_dele">data deleted</string>
+    <string name="modify">modify</string>
+    <string name="Input_succ">Saving consuption : success</string>
+    <string name="Input_fail">Saving consuption : failed</string>
+    <string name="Ride_n_save">Ride isnt saved</string>
+    <string name="choose_consut">choose the constructor</string>
+    <string name="elect">Electricity</string>
+    <string name="distanceKm">Distance in KM</string>
+    <string name="deniv">Elevation +</string>
+    <string name="deniv_m">Elevation -</string>
+    <string name="el_cons">Electricity consuption (KW)</string>
+    <string name="gas_cons">Gas consuption (L)</string>
+</resources>

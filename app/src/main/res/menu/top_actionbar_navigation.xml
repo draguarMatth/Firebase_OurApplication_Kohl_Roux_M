@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/nav_main"
+        android:icon="@drawable/ic_baseline_directions_car_24"
+        android:title="Mes voitures"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/nav_list_trajet"
+        android:icon="@drawable/ic_baseline_call_split_24"
+        android:title="Liste des trajets"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/nav_trajet_en_cours"
+        android:icon="@drawable/ic_baseline_add_24"
+        android:title="trajetEntity en cours"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/nav_stat_dernier_trajet"
+        android:icon="@drawable/ic_baseline_arrow_back_ios_24"
+        android:title="Dernier trajetEntity"
+        app:showAsAction="never"/>
+</menu>

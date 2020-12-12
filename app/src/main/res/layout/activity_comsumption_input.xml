@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.management.NewTrajetConsumptionInput">
+
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <include layout="@layout/content_main" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="270dp"
+        android:layout_marginTop="70dp"
+        android:text="@string/essence"
+        tools:text="Essence" />
+
+    <Button
+        android:id="@+id/addFuelButton"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="270dp"
+        android:layout_marginTop="170dp"
+        android:background="@android:drawable/arrow_down_float"
+        android:visibility="visible"
+        tools:visibility="visible" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/fuelInputsRecyclerView"
+        android:layout_width="135dp"
+        android:layout_height="309dp"
+        android:layout_marginStart="260dp"
+        android:layout_marginTop="250dp"
+        android:ems="16"
+        android:gravity="start|top"
+        android:scrollbars="vertical"
+        tools:listitem="@layout/activity_list_trajet" />
+
+    <EditText
+        android:id="@+id/saisieCarb"
+        android:layout_width="125dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="240dp"
+        android:layout_marginTop="100dp"
+        android:ems="10"
+        android:inputType="numberDecimal" />
+
+    <EditText
+        android:id="@+id/saisieElect"
+        android:layout_width="125dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="100dp"
+        android:autofillHints=""
+        android:ems="10"
+        android:inputType="numberDecimal" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/electInputsRecyclerView"
+        android:layout_width="110dp"
+        android:layout_height="309dp"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="250dp"
+        android:ems="16"
+        android:gravity="start|center_horizontal"
+        android:inputType="text"
+        android:scrollbars="vertical"
+        android:visibility="visible"
+        tools:listitem="@layout/activity_list_trajet" />
+
+    <Button
+        android:id="@+id/addElectButton"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="170dp"
+        android:background="@android:drawable/arrow_down_float"
+        android:visibility="visible"
+        tools:visibility="visible" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/saveTrip"
+        android:layout_width="260dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_margin="@dimen/fab_margin"
+        android:backgroundTint="@android:color/holo_green_light"
+        android:text="@string/fin_du_voyage_save_all"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        app:srcCompat="@android:drawable/ic_menu_save"
+        />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="70dp"
+        android:layout_marginTop="70dp"
+        android:text="@string/elect" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

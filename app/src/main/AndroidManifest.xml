@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.ourapplication_kohl_roux_m">
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <application
+        android:name=".BaseApp"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        android:requestLegacyExternalStorage="true">
+        <activity
+            android:name=".ui.Start"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".ui.Settings.SettingsActivity" />
+       <activity
+            android:name=".ui.MainActivity"
+            android:label="@string/app_name"
+            android:parentActivityName=".ui.Start"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.ourapplication_kohl_roux_m.ui.Start" />
+        </activity>
+        <activity
+            android:name=".ui.BaseActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ui.trajet.ListTrajet_BazActivity"
+            android:label="/ @string/title_activity_ListTrajet"
+            android:parentActivityName=".ui.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.ourapplication_kohl_roux_m.ui.MainActivity" />
+        </activity>
+
+        <activity
+            android:name=".ui.management.NewTrajetConsumptionInput"
+            android:label="@string/consommation"
+            android:parentActivityName=".ui.trajet.ListTrajet_BazActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.ourapplication_kohl_roux_m.ui.trajet.ListTrajet_BazActivity" />
+        </activity>
+        <activity
+            android:name=".ui.management.CreateTrip"
+            android:label="@string/newTrip"
+            android:parentActivityName=".ui.trajet.ListTrajet_BazActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.ourapplication_kohl_roux_m.ui.trajet.ListTrajet_BazActivity" />
+        </activity>
+        <activity
+            android:name=".ui.car.ListMyActiveCars"
+            android:label="Page Base"
+            android:parentActivityName=".ui.Start"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.ourapplication_kohl_roux_m.ui.Start" />
+        </activity>
+        <activity
+            android:name=".ui.car.ListAllMyCars"
+            android:label="Page Base"
+            android:parentActivityName=".ui.Start"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.ourapplication_kohl_roux_m.ui.Start" />
+        </activity>
+        <activity
+           android:name=".ui.car.ChooseNewCar"
+           android:label="Nouvelle voiture"
+           android:parentActivityName=".ui.car.ListMyActiveCars"
+           android:theme="@style/AppTheme.NoActionBar">
+           <meta-data
+               android:name="android.support.PARENT_ACTIVITY"
+               android:value="com.example.ourapplication_kohl_roux_m.ui.car.ListMyActiveCars" />
+        </activity>
+        <activity
+            android:name=".ui.trajet.TrajetActivity"
+            android:parentActivityName=".ui.trajet.ListTrajet_BazActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.ourapplication_kohl_roux_m.ui.trajet.ListTrajet_BazActivity" />
+        </activity>
+
+        <activity
+            android:name=".ui.car.CarDescription"
+            android:parentActivityName=".ui.car.ListMyActiveCars"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.ourapplication_kohl_roux_m.ui.car.ListMyActiveCars" />
+        </activity>
+        <activity
+            android:name=".ui.car.CarActivities"
+            android:parentActivityName=".ui.car.ListMyActiveCars"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.ourapplication_kohl_roux_m.ui.car.ListMyActiveCars" />
+        </activity>
+    </application>
+
+</manifest>
