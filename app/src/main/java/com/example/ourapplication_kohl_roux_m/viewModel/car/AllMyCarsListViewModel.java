@@ -50,11 +50,11 @@ public class AllMyCarsListViewModel extends AndroidViewModel {
         }
 
         public void deleteOneCar(CarEntity carEntity, OnAsyncEventListener callback) {
-            repository.delete(carEntity, callback, application);
+            repository.delete(carEntity, callback);
         }
 
         public void modifyOneCar(final CarEntity carEntity, OnAsyncEventListener callback) {
-            repository.update(carEntity, callback, application);
+            repository.update(carEntity, callback);
         }
 
 
