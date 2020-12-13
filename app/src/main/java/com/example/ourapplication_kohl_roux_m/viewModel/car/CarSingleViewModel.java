@@ -11,7 +11,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.ourapplication_kohl_roux_m.BaseApp;
 import com.example.ourapplication_kohl_roux_m.dbClass.Repository.CarRepository;
-import com.example.ourapplication_kohl_roux_m.dbClass.entities.CarEntity;
+import com.example.ourapplication_kohl_roux_m.dbClass.entity.CarEntity;
 import com.example.ourapplication_kohl_roux_m.util.OnAsyncEventListener;
 
 public class CarSingleViewModel extends AndroidViewModel {
@@ -21,7 +21,8 @@ public class CarSingleViewModel extends AndroidViewModel {
     private final CarRepository repository;
     private final MediatorLiveData<CarEntity> observableCar;
 
-    public CarSingleViewModel(final long carId, @NonNull Application application,
+    public CarSingleViewModel(@NonNull Application application,
+                              final long carId,
                               CarRepository carRepository) {
         super(application);
 
@@ -34,7 +35,7 @@ public class CarSingleViewModel extends AndroidViewModel {
         observableCar.setValue(null);
 
         LiveData<CarEntity> car =
-                repository.getCar(carId, application);
+                repository.getCar(carId);
 
 
         // observe the changes of the entities from the database and forward them
