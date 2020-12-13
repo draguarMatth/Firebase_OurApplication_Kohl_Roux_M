@@ -8,7 +8,9 @@ import androidx.lifecycle.LiveData;
 import com.example.ourapplication_kohl_roux_m.dbClass.entity.CarEntity;
 import com.example.ourapplication_kohl_roux_m.dbClass.firebase.CarListliveData;
 
+import com.example.ourapplication_kohl_roux_m.dbClass.firebase.CarLiveData;
 import com.example.ourapplication_kohl_roux_m.util.OnAsyncEventListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -33,11 +35,20 @@ public class CarRepository {
         return instance;
     }
 
-    public LiveData<List<CarEntity>> getCar(final String nickname) {
+    public LiveData<CarEntity> getCarById(final long carUid) {
+        DatabaseReference reference = FirebaseDatabase.getInstance()
+                .getReference("uid")
+                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .child("car")
+                .child(String.valueOf(carUid));
+        return new CarLiveData(reference);
+    }
+
+    public LiveData<List<CarEntity>> getCarByName(final String nickname) {
         DatabaseReference reference = FirebaseDatabase.getInstance()
                 .getReference("nickname")
                 .child(String.valueOf(nickname))
-                .child("carId");
+                .child("car");
         return new CarListliveData(reference, nickname);
     }
 
@@ -45,12 +56,12 @@ public class CarRepository {
         DatabaseReference reference = FirebaseDatabase.getInstance()
                 .getReference("nickname")
                 .child(car.getNickName())
-                .child("carId");
+                .child("car");
         String key = reference.push().getKey();
         FirebaseDatabase.getInstance()
                 .getReference("nickname")
                 .child(car.getNickName())
-                .child("carId")
+                .child("car")
                 .child(key)
                 .setValue(car, (databaseError, databaseReference) -> {
                     if (databaseError != null) {
@@ -65,7 +76,7 @@ public class CarRepository {
         FirebaseDatabase.getInstance()
                 .getReference("nickname")
                 .child(car.getNickName())
-                .child("carId")
+                .child("car")
                 .child(car.getNickName())
                 .updateChildren(car.toMap(), (databaseError, databaseReference) -> {
                     if (databaseError != null) {
@@ -80,7 +91,7 @@ public class CarRepository {
         FirebaseDatabase.getInstance()
                 .getReference("nickname")
                 .child(car.getNickName())
-                .child("carId")
+                .child("car")
                 .child(car.getNickName())
                 .removeValue((databaseError, databaseReference) -> {
                     if (databaseError != null) {
@@ -101,14 +112,14 @@ public class CarRepository {
                 rootReference
                         .child("nickname")
                         .child(sender.getNickName())
-                        .child("carId")
+                        .child("car")
                         .child(String.valueOf(sender.getUid()))
                         .updateChildren(sender.toMap());
 
                 rootReference
                         .child("nickname")
                         .child(recipient.getNickName())
-                        .child("carId")
+                        .child("car")
                         .child(String.valueOf(recipient.getUid()))
                         .updateChildren(recipient.toMap());
 

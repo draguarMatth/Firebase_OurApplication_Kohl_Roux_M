@@ -16,7 +16,7 @@ import com.example.ourapplication_kohl_roux_m.util.OnAsyncEventListener;
 
 public class CarSingleViewModel extends AndroidViewModel {
 
-    private final Application application;
+
 
     private final CarRepository repository;
     private final MediatorLiveData<CarEntity> observableCar;
@@ -26,8 +26,6 @@ public class CarSingleViewModel extends AndroidViewModel {
                               CarRepository carRepository) {
         super(application);
 
-        this.application = application;
-
         repository = carRepository;
 
         observableCar = new MediatorLiveData<>();
@@ -35,7 +33,7 @@ public class CarSingleViewModel extends AndroidViewModel {
         observableCar.setValue(null);
 
         LiveData<CarEntity> car =
-                repository.getCar(carId);
+                repository.getCar(String.valueOf(carId));
 
 
         // observe the changes of the entities from the database and forward them
@@ -49,8 +47,9 @@ public class CarSingleViewModel extends AndroidViewModel {
         return observableCar;
     }
 
-    public void modifyOneCar(final CarEntity carEntity, OnAsyncEventListener callback) {
-        repository.update(carEntity, callback, application);
+    public void modifyOneCar(CarEntity carEntity, OnAsyncEventListener callback) {
+        ((BaseApp) getApplication()).getCarRepository()
+                .insert(carEntity, callback);
     }
 
     /**
@@ -73,7 +72,7 @@ public class CarSingleViewModel extends AndroidViewModel {
 
         @Override
         public <T extends ViewModel> T create(Class<T> modelClass) {
-            return (T) new CarSingleViewModel(carId, application, repository);
+            return (T) new CarSingleViewModel(application, carId, repository);
         }
     }
 }

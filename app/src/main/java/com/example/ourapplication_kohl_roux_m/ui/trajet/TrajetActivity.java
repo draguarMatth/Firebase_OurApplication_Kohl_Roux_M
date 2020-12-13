@@ -6,8 +6,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.ourapplication_kohl_roux_m.R;
-import com.example.ourapplication_kohl_roux_m.dbClass.entities.CarEntity;
-import com.example.ourapplication_kohl_roux_m.dbClass.entities.TrajetEntity;
+import com.example.ourapplication_kohl_roux_m.dbClass.entity.CarEntity;
+import com.example.ourapplication_kohl_roux_m.dbClass.entity.TrajetEntity;
 import com.example.ourapplication_kohl_roux_m.ui.BaseActivity;
 
 public class TrajetActivity extends BaseActivity {

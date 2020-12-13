@@ -3,9 +3,6 @@ package com.example.ourapplication_kohl_roux_m.dbClass.Repository;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 
-import com.example.ourapplication_kohl_roux_m.dbClass.entity.TrajetEntity;
-import com.example.ourapplication_kohl_roux_m.dbClass.firebase.TrajetListliveData;
-import com.example.ourapplication_kohl_roux_m.util.OnAsyncEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -15,15 +12,21 @@ import com.google.firebase.database.Transaction;
 
 import java.util.List;
 
+import com.example.ourapplication_kohl_roux_m.dbClass.entity.TrajetEntity;
+import com.example.ourapplication_kohl_roux_m.dbClass.firebase.TrajetListliveData;
+import com.example.ourapplication_kohl_roux_m.dbClass.firebase.TrajetLiveData;
+import com.example.ourapplication_kohl_roux_m.util.OnAsyncEventListener;
+
+
 public class TrajetRepository {
 
-    private static CarRepository instance;
+    private static TrajetRepository instance;
 
-    public static CarRepository getInstance() {
+    public static TrajetRepository getInstance() {
         if (instance == null) {
-            synchronized (CarRepository.class) {
+            synchronized (TrajetRepository.class) {
                 if (instance == null) {
-                    instance = new CarRepository();
+                    instance = new TrajetRepository();
                 }
             }
         }
@@ -34,7 +37,7 @@ public class TrajetRepository {
         DatabaseReference reference = FirebaseDatabase.getInstance()
                 .getReference("name")
                 .child(String.valueOf(nickname))
-                .child("trajetId");
+                .child("trajet");
         return new TrajetListliveData(reference, nickname);
     }
 
@@ -42,12 +45,12 @@ public class TrajetRepository {
         DatabaseReference reference = FirebaseDatabase.getInstance()
                 .getReference("name")
                 .child(car.getName())
-                .child("trajetId");
+                .child("trajet");
         String key = reference.push().getKey();
         FirebaseDatabase.getInstance()
                 .getReference("name")
                 .child(car.getName())
-                .child("trajetId")
+                .child("trajet")
                 .child(key)
                 .setValue(car, (databaseError, databaseReference) -> {
                     if (databaseError != null) {
@@ -62,7 +65,7 @@ public class TrajetRepository {
         FirebaseDatabase.getInstance()
                 .getReference("name")
                 .child(car.getName())
-                .child("trajetId")
+                .child("trajet")
                 .child(car.getName())
                 .updateChildren(car.toMap(), (databaseError, databaseReference) -> {
                     if (databaseError != null) {
@@ -77,7 +80,7 @@ public class TrajetRepository {
         FirebaseDatabase.getInstance()
                 .getReference("name")
                 .child(car.getName())
-                .child("trajetId")
+                .child("trajet")
                 .child(car.getName())
                 .removeValue((databaseError, databaseReference) -> {
                     if (databaseError != null) {
@@ -98,14 +101,14 @@ public class TrajetRepository {
                 rootReference
                         .child("name")
                         .child(sender.getName())
-                        .child("trajetId")
+                        .child("trajet")
                         .child(String.valueOf(sender.getUid()))
                         .updateChildren(sender.toMap());
 
                 rootReference
                         .child("name")
                         .child(recipient.getName())
-                        .child("trajetId")
+                        .child("trajet")
                         .child(String.valueOf(recipient.getUid()))
                         .updateChildren(recipient.toMap());
 

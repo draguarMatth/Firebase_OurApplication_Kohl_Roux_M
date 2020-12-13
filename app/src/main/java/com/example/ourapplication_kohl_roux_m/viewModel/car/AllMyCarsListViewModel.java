@@ -10,7 +10,8 @@ import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.ourapplication_kohl_roux_m.BaseApp;
-import com.example.ourapplication_kohl_roux_m.dbClass.entities.CarEntity;
+import com.example.ourapplication_kohl_roux_m.dbClass.Repository.CarRepository;
+import com.example.ourapplication_kohl_roux_m.dbClass.entity.CarEntity;
 import com.example.ourapplication_kohl_roux_m.util.OnAsyncEventListener;
 
 import java.util.List;
@@ -19,11 +20,11 @@ public class AllMyCarsListViewModel extends AndroidViewModel {
 
         private final Application application;
 
-        private final carRepositor repository;
+        private final CarRepository repository;
         private final MediatorLiveData<List<CarEntity>> observableCars;
 
         public AllMyCarsListViewModel(@NonNull Application application,
-                                  carRepositor carRepository) {
+                                      CarRepository carRepository) {
             super(application);
 
             this.application = application;
@@ -66,7 +67,7 @@ public class AllMyCarsListViewModel extends AndroidViewModel {
             @NonNull
             private final Application application;
 
-            private final carRepositor repository;
+            private final CarRepository repository;
 
             public Factory(@NonNull Application application) {
                 this.application = application;

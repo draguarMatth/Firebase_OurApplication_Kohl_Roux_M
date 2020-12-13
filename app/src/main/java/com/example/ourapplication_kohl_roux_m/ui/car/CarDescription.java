@@ -1,13 +1,12 @@
 package com.example.ourapplication_kohl_roux_m.ui.car;
 
-import android.app.AlertDialog;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.Menu;
+
 import android.view.MenuItem;
-import android.view.View;
+
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -18,8 +17,7 @@ import androidx.core.view.GravityCompat;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.ourapplication_kohl_roux_m.R;
-import com.example.ourapplication_kohl_roux_m.dbClass.asynch.car.UpdateCar;
-import com.example.ourapplication_kohl_roux_m.dbClass.entities.CarEntity;
+import com.example.ourapplication_kohl_roux_m.dbClass.entity.CarEntity;
 import com.example.ourapplication_kohl_roux_m.ui.BaseActivity;
 import com.example.ourapplication_kohl_roux_m.util.OnAsyncEventListener;
 import com.example.ourapplication_kohl_roux_m.viewModel.car.CarSingleViewModel;
@@ -84,7 +82,7 @@ public class CarDescription extends BaseActivity {
         Toast toastSuccess = Toast.makeText(this, getString(R.string.car_data_mod), Toast.LENGTH_LONG);
         Toast toastFailed = Toast.makeText(this, getString(R.string.car_failed_mod), Toast.LENGTH_LONG);
 
-        new UpdateCar(getApplication(), new OnAsyncEventListener() {
+        new update(getApplication(), new OnAsyncEventListener() {
             @Override
             public void onSuccess() {
                 Log.d(TAG, getString(R.string.modify_car_s));

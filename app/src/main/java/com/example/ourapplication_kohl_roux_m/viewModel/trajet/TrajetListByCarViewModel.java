@@ -11,8 +11,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.ourapplication_kohl_roux_m.BaseApp;
 import com.example.ourapplication_kohl_roux_m.dbClass.Repository.TrajetRepository;
-import com.example.ourapplication_kohl_roux_m.dbClass.asynch.trajet.DeleteTrajet;
-import com.example.ourapplication_kohl_roux_m.dbClass.entities.TrajetEntity;
+import com.example.ourapplication_kohl_roux_m.dbClass.entity.TrajetEntity;
 import com.example.ourapplication_kohl_roux_m.util.OnAsyncEventListener;
 
 import java.util.List;
@@ -23,12 +22,10 @@ public class TrajetListByCarViewModel extends AndroidViewModel {
 
     private final TrajetRepository repository;
 
-    // MediatorLiveData can observe other LiveData objects and react on their emissions.
     private final MediatorLiveData<List<TrajetEntity>> observableTrajets;
-//    private final MediatorLiveData<List<CarEntity>> observableCars;
 
     public TrajetListByCarViewModel(@NonNull Application application,
-                                    final long carId,
+                                    final String nickname,
                                     TrajetRepository trajetRepository) {
         super(application);
 
@@ -41,7 +38,7 @@ public class TrajetListByCarViewModel extends AndroidViewModel {
         observableTrajets.setValue(null);
 
         LiveData<List<TrajetEntity>> trajetList =
-                repository.getTrajetByCarId(carId, application);
+                repository.getCar(nickname);
 
         observableTrajets.addSource(trajetList, observableTrajets::setValue);
     }
@@ -50,9 +47,10 @@ public class TrajetListByCarViewModel extends AndroidViewModel {
         return observableTrajets;
     }
 
-    public void deleteTrajetViewModel(final TrajetEntity trajetEntity,
+    public void deleteTrajetViewModel(TrajetEntity trajetEntity,
                                       OnAsyncEventListener callback) {
-        new DeleteTrajet(application, callback).execute(trajetEntity);
+        ((BaseApp) getApplication()).getTrajetRepository()
+                .delete(trajetEntity, callback);
     }
 
     public static class Factory extends ViewModelProvider.NewInstanceFactory {
@@ -60,20 +58,20 @@ public class TrajetListByCarViewModel extends AndroidViewModel {
         @NonNull
         private final Application application;
 
-        private final long carId;
+        private final String nickname;
 
         private final TrajetRepository trajetRepository;
 
-        public Factory(@NonNull Application application, long carId) {
+        public Factory(@NonNull Application application, String nickname) {
             this.application = application;
-            this.carId = carId;
+            this.nickname = nickname;
             trajetRepository = ((BaseApp) application).getTrajetRepository();
         }
 
         @Override
         public <T extends ViewModel> T create(Class<T> modelClass) {
 
-            return (T) new TrajetListByCarViewModel(application, carId, trajetRepository);
+            return (T) new TrajetListByCarViewModel(application, nickname, trajetRepository);
         }
     }
 }
