@@ -6,7 +6,10 @@ import androidx.lifecycle.LiveData;
 
 import com.example.ourapplication_kohl_roux_m.dbClass.entity.TrajetEntity;
 import com.example.ourapplication_kohl_roux_m.dbClass.firebase.TrajetListliveData;
+import com.example.ourapplication_kohl_roux_m.dbClass.entities.TrajetEntity;
 import com.example.ourapplication_kohl_roux_m.util.OnAsyncEventListener;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -128,6 +131,20 @@ public class TrajetRepository {
                     }
                 });
 
+    public void insert(final TrajetEntity trajetEntity, OnAsyncEventListener callback) {
+
+ //       new CreateTrajet(application, callback).execute(trajetEntity);
+
+        FirebaseDatabase.getInstance()
+                .getReference("trajets")
+                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .setValue(trajetEntity, (databaseError, databaseReference) -> {
+                    if (databaseError != null) {
+                        callback.onFailure(databaseError.toException());
+                    } else {
+                        callback.onSuccess();
+                    }
+                });
             @Override
             public void onComplete(DatabaseError databaseError, boolean b,
                                    DataSnapshot dataSnapshot) {
@@ -156,6 +173,36 @@ public class TrajetRepository {
                 });
     }
 
+    public void update(final TrajetEntity trajetEntity, OnAsyncEventListener callback) {
+
+        // new UpdateTrajet(application, callback).execute(trajetEntity);
+
+        FirebaseDatabase.getInstance()
+                .getReference("cars")
+                .child(trajetEntity.getUid())
+                .updateChildren(trajetEntity.toMap(), (databaseError, databaseReference) -> {
+                    if (databaseError != null) {
+                        callback.onFailure(databaseError.toException());
+                    } else {
+                        callback.onSuccess();
+                    }
+                });
+    }
+
+    public void delete(final TrajetEntity trajetEntity, OnAsyncEventListener callback) {
+
+        // new DeleteTrajet(application, callback).execute(trajetEntity);
+
+        FirebaseDatabase.getInstance()
+                .getReference("cars")
+                .child(trajetEntity.getUid())
+                .removeValue((databaseError, databaseReference) -> {
+                    if (databaseError != null) {
+                        callback.onFailure(databaseError.toException());
+                    } else {
+                        callback.onSuccess();
+                    }
+                });
     public void delete(final TrajetEntity trajetEntity, OnAsyncEventListener callback) {
 
         // new DeleteTrajet(application, callback).execute(trajetEntity);

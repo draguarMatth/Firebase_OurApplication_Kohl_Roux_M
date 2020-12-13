@@ -15,10 +15,13 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.view.GravityCompat;
 import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -27,7 +30,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.ourapplication_kohl_roux_m.R;
 import com.example.ourapplication_kohl_roux_m.adapter.RecyclerAdapter;
 import com.example.ourapplication_kohl_roux_m.dbClass.Repository.TrajetRepository;
-import com.example.ourapplication_kohl_roux_m.dbClass.asynch.trajet.UpdateTrajet;
 import com.example.ourapplication_kohl_roux_m.dbClass.entities.TrajetEntity;
 import com.example.ourapplication_kohl_roux_m.ui.BaseActivity;
 import com.example.ourapplication_kohl_roux_m.ui.Settings.SettingsActivity;
@@ -193,8 +195,7 @@ public class NewTrajetConsumptionInput extends BaseActivity {
 
             TrajetSingleViewModel.Factory factory = new TrajetSingleViewModel.Factory(
                     getApplication(), carId, trajetDate);
-            TrajetSingleViewModel viewModel = ViewModelProviders.of(this, factory).get(TrajetSingleViewModel.class);
-            viewModel = ViewModelProviders.of(this, factory).get(TrajetSingleViewModel.class);
+            viewModel = new ViewModelProvider(this, factory).get(TrajetSingleViewModel.class);
             viewModel.getSingleTripviewMod().observe(this, trajetL -> {
                 if (trajetL != null) {
                     upDTrajet = trajetL;
@@ -281,13 +282,13 @@ public class NewTrajetConsumptionInput extends BaseActivity {
 
     private void saveChanges() {
 
-        upDTrajet.electricityTot = calcul(electInputs) ;
-        upDTrajet.gasolinTot = calcul(fuelInputs);
-        upDTrajet.kmTot = 1000;
-        upDTrajet.totDeep = 5;
-        upDTrajet.totRise = 5;
+        upDTrajet.setElectricityTot(calcul(electInputs)) ;
+        upDTrajet.setGasolinTot (calcul(fuelInputs));
+        upDTrajet.setKmTot (1000);
+        upDTrajet.setTotDeep (5);
+        upDTrajet.setTotRise (5);
 
-        new UpdateTrajet(getApplication(), new OnAsyncEventListener() {
+        viewModel.update(upDTrajet, new OnAsyncEventListener() {
             @SuppressLint("LongLogTag")
             @Override
             public void onSuccess() {
@@ -301,7 +302,7 @@ public class NewTrajetConsumptionInput extends BaseActivity {
                 Log.d(TAG, getString(R.string.Input_fail), e);
             }
 
-        }).execute(upDTrajet);
+        });
 
     }
 

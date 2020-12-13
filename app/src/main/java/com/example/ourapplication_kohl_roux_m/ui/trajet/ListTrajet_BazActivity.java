@@ -10,8 +10,11 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 import androidx.annotation.NonNull;
 import androidx.core.view.GravityCompat;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -23,7 +26,6 @@ import com.example.ourapplication_kohl_roux_m.dbClass.entities.TrajetEntity;
 import com.example.ourapplication_kohl_roux_m.ui.BaseActivity;
 import com.example.ourapplication_kohl_roux_m.ui.Settings.SettingsActivity;
 import com.example.ourapplication_kohl_roux_m.ui.management.CreateTrip;
-import com.example.ourapplication_kohl_roux_m.ui.management.NewTrajetConsumptionInput;
 import com.example.ourapplication_kohl_roux_m.util.OnAsyncEventListener;
 import com.example.ourapplication_kohl_roux_m.util.RecyclerViewItemClickListener;
 import com.example.ourapplication_kohl_roux_m.viewModel.trajet.TrajetListByCarViewModel;
@@ -67,7 +69,7 @@ public class ListTrajet_BazActivity extends BaseActivity {
 
         TrajetListByCarViewModel.Factory factory = new TrajetListByCarViewModel.Factory(
                 getApplication(), carId);
-        viewModel = ViewModelProviders.of(this, factory).get(TrajetListByCarViewModel.class);
+        viewModel = new ViewModelProvider(this, factory).get(TrajetListByCarViewModel.class);
         viewModel.getTrajetByCarViewModel().observe(this, trajetsL -> {
             if (trajetsL != null) {
                 trajets = trajetsL;

@@ -5,9 +5,13 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.ourapplication_kohl_roux_m.R;
-import com.example.ourapplication_kohl_roux_m.dbClass.entities.CarEntity;
+import androidx.lifecycle.ViewModelProvider;
+
 import com.example.ourapplication_kohl_roux_m.dbClass.entities.TrajetEntity;
+import com.example.ourapplication_kohl_roux_m.viewModel.trajet.TrajetSingleViewModel;
+import com.google.firebase.auth.FirebaseAuth;
+
+import com.example.ourapplication_kohl_roux_m.R;
 import com.example.ourapplication_kohl_roux_m.ui.BaseActivity;
 
 public class TrajetActivity extends BaseActivity {
@@ -21,6 +25,8 @@ public class TrajetActivity extends BaseActivity {
     TextView consoElect;
     TextView consoFuel;
     private Intent previousIntent;
+    private TrajetSingleViewModel viewModel;
+    private TrajetEntity trajet;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,21 +45,17 @@ public class TrajetActivity extends BaseActivity {
         consoElect = findViewById(R.id.consoElect);
         consoFuel = findViewById(R.id.consoFuel);
 
-        TrajetEntity trajet = bundle.getParcelable("Trajet");
-
-        String name = trajet.getName();
-        double dist = trajet.getKmTot();
-        double deep = trajet.getTotDeep();
-        double rise = trajet.getTotRise();
-        double consoE = trajet.getElectricityTot();
-        double consoF = trajet.getGasolinTot();
-
-        nameTrajet.setText(name);
-        distance.setText(String.valueOf(dist));
-        down.setText(String.valueOf(deep));
-        up.setText(String.valueOf(rise));
-        consoElect.setText(String.valueOf(consoE));
-        consoFuel.setText(String.valueOf(consoF));
+        TrajetSingleViewModel.Factory factory = new TrajetSingleViewModel.Factory(
+                getApplication(),
+                FirebaseAuth.getInstance().getCurrentUser().getUid(carId, dateOfTrip)
+        );
+        viewModel = new ViewModelProvider(this, factory).get(TrajetSingleViewModel.class);
+        viewModel.getSingleTripviewMod().observe(this, trajetVM -> {
+            if (trajetVM != null) {
+                trajet = trajetVM;
+                updateContent();
+            }
+        });
 
     }
 }

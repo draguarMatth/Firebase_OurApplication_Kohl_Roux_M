@@ -6,6 +6,9 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 
 import com.example.ourapplication_kohl_roux_m.BaseApp;
+import com.example.ourapplication_kohl_roux_m.dbClass.asynch.car.CreateCar;
+import com.example.ourapplication_kohl_roux_m.dbClass.asynch.car.DeleteCar;
+import com.example.ourapplication_kohl_roux_m.dbClass.asynch.car.UpdateCar;
 import com.example.ourapplication_kohl_roux_m.dbClass.entities.CarEntity;
 import com.example.ourapplication_kohl_roux_m.dbClass.entities.TrajetEntity;
 
@@ -61,6 +64,13 @@ public class CarRepository {
         return new AllCarLiveData(reference);
     }
 
+    public LiveData<List<CarEntity>> getAllCar() {
+        DatabaseReference reference = FirebaseDatabase.getInstance()
+                .getReference("cars")
+                .child(getAllCar());
+        return new AllCarLiveData(reference);
+    }
+
     public void insert(final CarEntity carEntity, final OnAsyncEventListener callback) {
 
         //       new CreateCar(callback).execute(carEntity);
@@ -76,8 +86,6 @@ public class CarRepository {
                     }
                 });
 
-    }
-
     public void update(final CarEntity carEntity, final OnAsyncEventListener callback) {
  //       new UpdateCar(callback).execute(carEntity);
 
@@ -92,18 +100,23 @@ public class CarRepository {
                     }
                 });
 
-    /*    FirebaseAuth.getInstance().getCurrentUser().updatePassword(carEntity.getPassword())
-                .addOnFailureListener(
-                        e -> Log.d(TAG, "update Car failure!", e)
-                );
+    }
 
-     */
-                rootReference
-                        .child("nickname")
-                        .child(recipient.getNickName())
-                        .child("carId")
-                        .child(String.valueOf(recipient.getUid()))
-                        .updateChildren(recipient.toMap());
+
+    public void delete(final CarEntity carEntity, OnAsyncEventListener callback) {
+
+    //    new DeleteCar(callback).execute(carEntity);
+
+        FirebaseDatabase.getInstance()
+                .getReference("cars")
+                .child(carEntity.getUid())
+                .removeValue((databaseError, databaseReference) -> {
+                    if (databaseError != null) {
+                        callback.onFailure(databaseError.toException());
+                    } else {
+                        callback.onSuccess();
+                    }
+                });
 
     }
 
