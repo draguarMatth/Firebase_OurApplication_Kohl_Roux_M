@@ -16,8 +16,6 @@ import com.example.ourapplication_kohl_roux_m.util.OnAsyncEventListener;
 
 public class TrajetSingleViewModel extends AndroidViewModel {
 
-    private final Application application;
-
     private final TrajetRepository repository;
     private final long carId;
     private final String dateOfTrip;
@@ -26,8 +24,6 @@ public class TrajetSingleViewModel extends AndroidViewModel {
     public TrajetSingleViewModel(@NonNull Application application,
                                  TrajetRepository trajetRepository, long carId, String dateOfTrip) {
         super(application);
-
-        this.application = application;
 
         repository = trajetRepository;
         this.carId = carId;
@@ -38,7 +34,7 @@ public class TrajetSingleViewModel extends AndroidViewModel {
         observableTrajet.setValue(null);
 
         LiveData<TrajetEntity> trajet =
-                repository.getOneTrajet(carId, dateOfTrip, application);
+                repository.getOneTrajet(carId, dateOfTrip);
 
         observableTrajet.addSource(trajet, observableTrajet::setValue);
     }
@@ -51,7 +47,7 @@ public class TrajetSingleViewModel extends AndroidViewModel {
     }
 
     public void update(TrajetEntity trajet, OnAsyncEventListener callback) {
-        repository.delete(trajet, callback, application);
+        repository.delete(trajet, callback);
     }
 
     /**
@@ -61,6 +57,7 @@ public class TrajetSingleViewModel extends AndroidViewModel {
 
         @NonNull
         private final Application application;
+
         private final TrajetRepository trajetRepository;
         private long carId;
         private String dateOfTrip;

@@ -1,6 +1,7 @@
 package com.example.ourapplication_kohl_roux_m.dbClass.Repository;
 
-import androidx.annotation.NonNull;
+import android.app.Application;
+
 import androidx.lifecycle.LiveData;
 
 import com.example.ourapplication_kohl_roux_m.dbClass.entity.TrajetEntity;
@@ -17,13 +18,16 @@ import java.util.List;
 
 public class TrajetRepository {
 
-    private static CarRepository instance;
+    private static TrajetRepository instance;
 
-    public static CarRepository getInstance() {
+    private TrajetRepository() {
+    }
+
+    public static TrajetRepository getInstance() {
         if (instance == null) {
-            synchronized (CarRepository.class) {
+            synchronized (TrajetRepository.class) {
                 if (instance == null) {
-                    instance = new CarRepository();
+                    instance = new TrajetRepository();
                 }
             }
         }
@@ -109,8 +113,20 @@ public class TrajetRepository {
                         .child(String.valueOf(recipient.getUid()))
                         .updateChildren(recipient.toMap());
 
-                return Transaction.success(mutableData);
-            }
+    public void insert(final TrajetEntity trajetEntity, OnAsyncEventListener callback) {
+
+ //       new CreateTrajet(application, callback).execute(trajetEntity);
+
+        FirebaseDatabase.getInstance()
+                .getReference("trajets")
+                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .setValue(trajetEntity, (databaseError, databaseReference) -> {
+                    if (databaseError != null) {
+                        callback.onFailure(databaseError.toException());
+                    } else {
+                        callback.onSuccess();
+                    }
+                });
 
             @Override
             public void onComplete(DatabaseError databaseError, boolean b,
@@ -122,5 +138,37 @@ public class TrajetRepository {
                 }
             }
         });
+    }
+
+    public void update(final TrajetEntity trajetEntity, OnAsyncEventListener callback) {
+
+        // new UpdateTrajet(application, callback).execute(trajetEntity);
+
+        FirebaseDatabase.getInstance()
+                .getReference("cars")
+                .child(trajetEntity.getUid())
+                .updateChildren(trajetEntity.toMap(), (databaseError, databaseReference) -> {
+                    if (databaseError != null) {
+                        callback.onFailure(databaseError.toException());
+                    } else {
+                        callback.onSuccess();
+                    }
+                });
+    }
+
+    public void delete(final TrajetEntity trajetEntity, OnAsyncEventListener callback) {
+
+        // new DeleteTrajet(application, callback).execute(trajetEntity);
+
+        FirebaseDatabase.getInstance()
+                .getReference("cars")
+                .child(trajetEntity.getUid())
+                .removeValue((databaseError, databaseReference) -> {
+                    if (databaseError != null) {
+                        callback.onFailure(databaseError.toException());
+                    } else {
+                        callback.onSuccess();
+                    }
+                });
     }
 }

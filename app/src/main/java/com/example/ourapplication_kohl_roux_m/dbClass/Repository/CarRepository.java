@@ -1,9 +1,13 @@
 package com.example.ourapplication_kohl_roux_m.dbClass.Repository;
 
+import android.app.Application;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 
+import com.example.ourapplication_kohl_roux_m.BaseApp;
+import com.example.ourapplication_kohl_roux_m.dbClass.entities.CarEntity;
+import com.example.ourapplication_kohl_roux_m.dbClass.entities.TrajetEntity;
 
 import com.example.ourapplication_kohl_roux_m.dbClass.entity.CarEntity;
 import com.example.ourapplication_kohl_roux_m.dbClass.firebase.CarListliveData;
@@ -33,78 +37,67 @@ public class CarRepository {
         return instance;
     }
 
-    public LiveData<List<CarEntity>> getCar(final String nickname) {
+    public LiveData<CarEntity> getCar(final long carId) {
         DatabaseReference reference = FirebaseDatabase.getInstance()
-                .getReference("nickname")
-                .child(String.valueOf(nickname))
-                .child("carId");
-        return new CarListliveData(reference, nickname);
+                .getReference("cars")
+                .child(carId);
+        return new CarLiveData(reference);
     }
 
-    public void insert(final CarEntity car, final OnAsyncEventListener callback) {
+    public LiveData<List<CarEntity>> getMyCars() {
+ //       LiveData<List<CarEntity>> carsLiveD = ((BaseApp) application).getDatabase().carDao().getByActivity();
+ //       List<CarEntity> cars = carsLiveD.getValue();
+
         DatabaseReference reference = FirebaseDatabase.getInstance()
-                .getReference("nickname")
-                .child(car.getNickName())
-                .child("carId");
-        String key = reference.push().getKey();
+                .getReference("cars")
+                .child(getMyCars());
+        return new ActiveCarLiveData(reference);
+    }
+
+    public LiveData<List<CarEntity>> getAllCar() {
+        DatabaseReference reference = FirebaseDatabase.getInstance()
+                .getReference("cars")
+                .child(getAllCar());
+        return new AllCarLiveData(reference);
+    }
+
+    public void insert(final CarEntity carEntity, final OnAsyncEventListener callback) {
+
+        //       new CreateCar(callback).execute(carEntity);
+
         FirebaseDatabase.getInstance()
-                .getReference("nickname")
-                .child(car.getNickName())
-                .child("carId")
-                .child(key)
-                .setValue(car, (databaseError, databaseReference) -> {
+                .getReference("cars")
+                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .setValue(carEntity, (databaseError, databaseReference) -> {
                     if (databaseError != null) {
                         callback.onFailure(databaseError.toException());
                     } else {
                         callback.onSuccess();
                     }
                 });
+
     }
 
-    public void update(final CarEntity car, OnAsyncEventListener callback) {
+    public void update(final CarEntity carEntity, final OnAsyncEventListener callback) {
+ //       new UpdateCar(callback).execute(carEntity);
+
         FirebaseDatabase.getInstance()
-                .getReference("nickname")
-                .child(car.getNickName())
-                .child("carId")
-                .child(car.getNickName())
-                .updateChildren(car.toMap(), (databaseError, databaseReference) -> {
+                .getReference("cars")
+                .child(carEntity.getUid())
+                .updateChildren(carEntity.toMap(), (databaseError, databaseReference) -> {
                     if (databaseError != null) {
                         callback.onFailure(databaseError.toException());
                     } else {
                         callback.onSuccess();
                     }
                 });
-    }
 
-    public void delete(final CarEntity car, OnAsyncEventListener callback) {
-        FirebaseDatabase.getInstance()
-                .getReference("nickname")
-                .child(car.getNickName())
-                .child("carId")
-                .child(car.getNickName())
-                .removeValue((databaseError, databaseReference) -> {
-                    if (databaseError != null) {
-                        callback.onFailure(databaseError.toException());
-                    } else {
-                        callback.onSuccess();
-                    }
-                });
-    }
+    /*    FirebaseAuth.getInstance().getCurrentUser().updatePassword(carEntity.getPassword())
+                .addOnFailureListener(
+                        e -> Log.d(TAG, "update Car failure!", e)
+                );
 
-    public void transaction(final CarEntity sender, final CarEntity recipient,
-                            OnAsyncEventListener callback) {
-        final DatabaseReference rootReference = FirebaseDatabase.getInstance().getReference();
-        rootReference.runTransaction(new Transaction.Handler() {
-            @NonNull
-            @Override
-            public Transaction.Result doTransaction(@NonNull MutableData mutableData) {
-                rootReference
-                        .child("nickname")
-                        .child(sender.getNickName())
-                        .child("carId")
-                        .child(String.valueOf(sender.getUid()))
-                        .updateChildren(sender.toMap());
-
+     */
                 rootReference
                         .child("nickname")
                         .child(recipient.getNickName())
@@ -112,8 +105,23 @@ public class CarRepository {
                         .child(String.valueOf(recipient.getUid()))
                         .updateChildren(recipient.toMap());
 
-                return Transaction.success(mutableData);
-            }
+    }
+
+
+    public void delete(final CarEntity carEntity, OnAsyncEventListener callback) {
+
+    //    new DeleteCar(callback).execute(carEntity);
+
+        FirebaseDatabase.getInstance()
+                .getReference("cars")
+                .child(carEntity.getUid())
+                .removeValue((databaseError, databaseReference) -> {
+                    if (databaseError != null) {
+                        callback.onFailure(databaseError.toException());
+                    } else {
+                        callback.onSuccess();
+                    }
+                });
 
             @Override
             public void onComplete(DatabaseError databaseError, boolean b,

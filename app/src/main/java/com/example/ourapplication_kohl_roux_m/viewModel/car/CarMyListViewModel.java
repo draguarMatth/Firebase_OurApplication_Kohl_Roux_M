@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.ourapplication_kohl_roux_m.BaseApp;
+import com.example.ourapplication_kohl_roux_m.dbClass.Repository.CarRepository;
 import com.example.ourapplication_kohl_roux_m.dbClass.entities.CarEntity;
 import com.example.ourapplication_kohl_roux_m.util.OnAsyncEventListener;
 
@@ -17,25 +18,21 @@ import java.util.List;
 
 public class CarMyListViewModel extends AndroidViewModel {
 
-    private final Application application;
-
-    private final carRepositor repository;
+    private final CarRepository repository;
     private final MediatorLiveData<List<CarEntity>> observableCars;
 
     public CarMyListViewModel(@NonNull Application application,
-                              carRepositor carRepository) {
+                              CarRepository carRepository) {
         super(application);
 
-        this.application = application;
-
-        repository = carRepository;
+       repository = carRepository;
 
         observableCars = new MediatorLiveData<>();
         // set by default null, until we get data from the database.
         observableCars.setValue(null);
 
         LiveData<List<CarEntity>> carList =
-                repository.getMyCars(application);
+                repository.getMyCars();
 
 
         // observe the changes of the entities from the database and forward them
@@ -50,15 +47,15 @@ public class CarMyListViewModel extends AndroidViewModel {
     }
 
     public void deleteOneCar(CarEntity carEntity, OnAsyncEventListener callback) {
-        repository.delete(carEntity, callback, application);
+        repository.delete(carEntity, callback);
     }
 
     public void modifyOneCar(final CarEntity carEntity, OnAsyncEventListener callback) {
-        repository.update(carEntity, callback, application);
+        repository.update(carEntity, callback);
     }
 
     public void createTunedCar(final CarEntity carEntity, OnAsyncEventListener callback) {
-        repository.insert(carEntity, callback, application);
+        repository.insert(carEntity, callback);
     }
 
     /**
@@ -69,7 +66,7 @@ public class CarMyListViewModel extends AndroidViewModel {
         @NonNull
         private final Application application;
 
-        private final carRepositor repository;
+        private final CarRepository repository;
 
         public Factory(@NonNull Application application) {
             this.application = application;
