@@ -284,9 +284,9 @@ public class NewTrajetConsumptionInput extends BaseActivity {
 
         upDTrajet.setElectricityTot(calcul(electInputs)) ;
         upDTrajet.setGasolinTot (calcul(fuelInputs));
-        upDTrajet.setKmTot ("1000");
-        upDTrajet.setTotDeep ("5");
-        upDTrajet.setTotRise ("5");
+        upDTrajet.setKmTot (1000);
+        upDTrajet.setTotDeep (5);
+        upDTrajet.setTotRise (5);
 
         viewModel.update(upDTrajet, new OnAsyncEventListener() {
             @SuppressLint("LongLogTag")
@@ -317,13 +317,13 @@ public class NewTrajetConsumptionInput extends BaseActivity {
         }
     }
 
-    private String calcul(List<String> saisies) {
+    private double calcul(List<String> saisies) {
         double result = 0;
         for (String item : saisies) {
             result += (Double.valueOf(item));
         }
 
-        return Double.toString(result);
+        return result;
     }
 
 

@@ -10,11 +10,11 @@ public class TrajetEntity implements Comparable {
     private String  uid;
     private String namOfTrip;
     private String date;
-    private String kmTot;
-    private String totRise;
-    private String totDeep;
-    private String gasolinTot;
-    private String electricityTot;
+    private double kmTot;
+    private double totRise;
+    private double totDeep;
+    private double gasolinTot;
+    private double electricityTot;
     private String carRef;
 
     public TrajetEntity (){}
@@ -44,43 +44,43 @@ public class TrajetEntity implements Comparable {
         this.date = date;
     }
 
-    public String getKmTot() {
+    public double getKmTot() {
         return kmTot;
     }
 
-    public void setKmTot(String kmTot) {
+    public void setKmTot(double kmTot) {
         this.kmTot = kmTot;
     }
 
-    public String getTotRise() {
+    public double getTotRise() {
         return totRise;
     }
 
-    public void setTotRise(String totRise) {
+    public void setTotRise(double totRise) {
         this.totRise = totRise;
     }
 
-    public String getTotDeep() {
+    public double getTotDeep() {
         return totDeep;
     }
 
-    public void setTotDeep(String totDeep) {
+    public void setTotDeep(double totDeep) {
         this.totDeep = totDeep;
     }
 
-    public String getGasolinTot() {
+    public double getGasolinTot() {
         return gasolinTot;
     }
 
-    public void setGasolinTot(String gasolinTot) {
+    public void setGasolinTot(double gasolinTot) {
         this.gasolinTot = gasolinTot;
     }
 
-    public String getElectricityTot() {
+    public double getElectricityTot() {
         return electricityTot;
     }
 
-    public void setElectricityTot(String electricityTot) {
+    public void setElectricityTot(double electricityTot) {
         this.electricityTot = electricityTot;
     }
 
@@ -98,35 +98,31 @@ public class TrajetEntity implements Comparable {
         if (obj == this) return true;
         if (!(obj instanceof TrajetEntity)) return false;
         TrajetEntity o = (TrajetEntity) obj;
-        return o.getUid() == this.getUid() || o.getCarId() == this.getCarId();
+        return o.getUid() == this.getUid() || o.getCarRef() == this.getCarRef();
     }
 
     @Override
     public String toString() {
-        return uid + " / " + carId + " / " + name + " / " + date;
+        return uid + " / " + carRef + " / " + namOfTrip + " / " + date;
     }
 
     @Override
-    public int compareTo(@NonNull Object o) {
+    public int compareTo(Object o) {
         return toString().compareTo(o.toString());
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
+    @Exclude
+    public Map<String, Object> toMap() {
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("name", namOfTrip);
+        result.put("kmTot", kmTot);
+        result.put("date", date);
+        result.put("totRise", totRise);
+        result.put("totDeep", totDeep);
+        result.put("gasolinTot", gasolinTot);
+        result.put("electricityTot", electricityTot);
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeLong(uid);
-        dest.writeLong(carId);
-        dest.writeString(name);
-        dest.writeString(date);
-        dest.writeDouble(kmTot);
-        dest.writeDouble(totRise);
-        dest.writeDouble(totDeep);
-        dest.writeDouble(gasolinTot);
-        dest.writeDouble(electricityTot);
+        return result;
     }
 
 
