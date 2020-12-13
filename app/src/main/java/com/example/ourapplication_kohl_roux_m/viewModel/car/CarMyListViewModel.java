@@ -18,8 +18,6 @@ import java.util.List;
 
 public class CarMyListViewModel extends AndroidViewModel {
 
-    private final Application application;
-
     private final CarRepository repository;
     private final MediatorLiveData<List<CarEntity>> observableCars;
 
@@ -27,16 +25,14 @@ public class CarMyListViewModel extends AndroidViewModel {
                               CarRepository carRepository) {
         super(application);
 
-        this.application = application;
-
-        repository = carRepository;
+       repository = carRepository;
 
         observableCars = new MediatorLiveData<>();
         // set by default null, until we get data from the database.
         observableCars.setValue(null);
 
         LiveData<List<CarEntity>> carList =
-                repository.getMyCars(application);
+                repository.getMyCars();
 
 
         // observe the changes of the entities from the database and forward them
@@ -51,15 +47,15 @@ public class CarMyListViewModel extends AndroidViewModel {
     }
 
     public void deleteOneCar(CarEntity carEntity, OnAsyncEventListener callback) {
-        repository.delete(carEntity, callback, application);
+        repository.delete(carEntity, callback);
     }
 
     public void modifyOneCar(final CarEntity carEntity, OnAsyncEventListener callback) {
-        repository.update(carEntity, callback, application);
+        repository.update(carEntity, callback);
     }
 
     public void createTunedCar(final CarEntity carEntity, OnAsyncEventListener callback) {
-        repository.insert(carEntity, callback, application);
+        repository.insert(carEntity, callback);
     }
 
     /**

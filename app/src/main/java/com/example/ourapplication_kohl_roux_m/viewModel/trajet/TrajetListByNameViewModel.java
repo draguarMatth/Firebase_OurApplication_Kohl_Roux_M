@@ -37,7 +37,7 @@ public class TrajetListByNameViewModel extends AndroidViewModel {
         observableTrajets.setValue(null);
 
         LiveData<List<TrajetEntity>> trajetList =
-                repository.getTrajetByName(tripName, application);
+                repository.getTrajetByName(tripName);
 
         observableTrajets.addSource(trajetList, observableTrajets::setValue);
     }

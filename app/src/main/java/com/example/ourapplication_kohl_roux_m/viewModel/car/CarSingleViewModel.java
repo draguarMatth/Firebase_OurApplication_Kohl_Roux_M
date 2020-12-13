@@ -49,7 +49,7 @@ public class CarSingleViewModel extends AndroidViewModel {
     }
 
     public void modifyOneCar(final CarEntity carEntity, OnAsyncEventListener callback) {
-        repository.update(carEntity, callback, application);
+        repository.update(carEntity, callback);
     }
 
     /**

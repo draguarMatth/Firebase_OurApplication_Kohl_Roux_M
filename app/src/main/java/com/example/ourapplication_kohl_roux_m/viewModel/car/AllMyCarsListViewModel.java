@@ -18,16 +18,12 @@ import java.util.List;
 
 public class AllMyCarsListViewModel extends AndroidViewModel {
 
-        private final Application application;
-
         private final CarRepository repository;
         private final MediatorLiveData<List<CarEntity>> observableCars;
 
         public AllMyCarsListViewModel(@NonNull Application application,
                                   CarRepository carRepository) {
             super(application);
-
-            this.application = application;
 
             repository = carRepository;
 
@@ -36,7 +32,7 @@ public class AllMyCarsListViewModel extends AndroidViewModel {
             observableCars.setValue(null);
 
             LiveData<List<CarEntity>> carList =
-                    repository.getAllCar(application);
+                    repository.getAllCar();
 
 
             // observe the changes of the entities from the database and forward them

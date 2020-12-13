@@ -5,9 +5,6 @@ import android.app.Application;
 import androidx.lifecycle.LiveData;
 
 import com.example.ourapplication_kohl_roux_m.BaseApp;
-import com.example.ourapplication_kohl_roux_m.dbClass.asynch.car.CreateCar;
-import com.example.ourapplication_kohl_roux_m.dbClass.asynch.car.DeleteCar;
-import com.example.ourapplication_kohl_roux_m.dbClass.asynch.car.UpdateCar;
 import com.example.ourapplication_kohl_roux_m.dbClass.entities.CarEntity;
 import com.example.ourapplication_kohl_roux_m.dbClass.entities.TrajetEntity;
 import com.example.ourapplication_kohl_roux_m.util.OnAsyncEventListener;
@@ -35,36 +32,85 @@ public class CarRepository {
         return instance;
     }
 
-    public LiveData<CarEntity> getCar(final long carId, Application application) {
-        return ((BaseApp) application).getDatabase().carDao().getCar(carId);
+    public LiveData<CarEntity> getCar(final long carId) {
+        DatabaseReference reference = FirebaseDatabase.getInstance()
+                .getReference("cars")
+                .child(carId);
+        return new CarLiveData(reference);
     }
 
-    public LiveData<List<CarEntity>> getMyCars(Application application) {
-        LiveData<List<CarEntity>> carsLiveD = ((BaseApp) application).getDatabase().carDao().getByActivity();
-        List<CarEntity> cars = carsLiveD.getValue();
+    public LiveData<List<CarEntity>> getMyCars() {
+ //       LiveData<List<CarEntity>> carsLiveD = ((BaseApp) application).getDatabase().carDao().getByActivity();
+ //       List<CarEntity> cars = carsLiveD.getValue();
 
-        return ((BaseApp) application).getDatabase().carDao().getByActivity();
+        DatabaseReference reference = FirebaseDatabase.getInstance()
+                .getReference("cars")
+                .child(getMyCars());
+        return new ActiveCarLiveData(reference);
     }
 
-    public LiveData<List<CarEntity>> getAllCar(Application application) {
-        return ((BaseApp) application).getDatabase().carDao().getAll();
+    public LiveData<List<CarEntity>> getAllCar() {
+        DatabaseReference reference = FirebaseDatabase.getInstance()
+                .getReference("cars")
+                .child(getAllCar());
+        return new AllCarLiveData(reference);
     }
 
-    public void insert(final CarEntity carEntity, OnAsyncEventListener callback,
-                       Application application) {
-        new CreateCar(application, callback).execute(carEntity);
+    public void insert(final CarEntity carEntity, final OnAsyncEventListener callback) {
+
+        //       new CreateCar(callback).execute(carEntity);
+
+        FirebaseDatabase.getInstance()
+                .getReference("cars")
+                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .setValue(carEntity, (databaseError, databaseReference) -> {
+                    if (databaseError != null) {
+                        callback.onFailure(databaseError.toException());
+                    } else {
+                        callback.onSuccess();
+                    }
+                });
+
     }
 
-    public void update(final CarEntity carEntity, OnAsyncEventListener callback,
-                       Application application) {
-        new UpdateCar(application, callback).execute(carEntity);
+    public void update(final CarEntity carEntity, final OnAsyncEventListener callback) {
+ //       new UpdateCar(callback).execute(carEntity);
+
+        FirebaseDatabase.getInstance()
+                .getReference("cars")
+                .child(carEntity.getUid())
+                .updateChildren(carEntity.toMap(), (databaseError, databaseReference) -> {
+                    if (databaseError != null) {
+                        callback.onFailure(databaseError.toException());
+                    } else {
+                        callback.onSuccess();
+                    }
+                });
+
+    /*    FirebaseAuth.getInstance().getCurrentUser().updatePassword(carEntity.getPassword())
+                .addOnFailureListener(
+                        e -> Log.d(TAG, "update Car failure!", e)
+                );
+
+     */
+
     }
 
 
-    public void delete(final CarEntity carEntity, OnAsyncEventListener callback,
-                       Application application) {
+    public void delete(final CarEntity carEntity, OnAsyncEventListener callback) {
 
-        new DeleteCar(application, callback).execute(carEntity);
+    //    new DeleteCar(callback).execute(carEntity);
+
+        FirebaseDatabase.getInstance()
+                .getReference("cars")
+                .child(carEntity.getUid())
+                .removeValue((databaseError, databaseReference) -> {
+                    if (databaseError != null) {
+                        callback.onFailure(databaseError.toException());
+                    } else {
+                        callback.onSuccess();
+                    }
+                });
 
     }
 }

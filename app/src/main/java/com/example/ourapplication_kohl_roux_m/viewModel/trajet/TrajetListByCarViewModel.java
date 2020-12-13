@@ -19,8 +19,6 @@ import java.util.List;
 
 public class TrajetListByCarViewModel extends AndroidViewModel {
 
-    private final Application application;
-
     private final TrajetRepository repository;
 
     // MediatorLiveData can observe other LiveData objects and react on their emissions.
@@ -32,8 +30,6 @@ public class TrajetListByCarViewModel extends AndroidViewModel {
                                     TrajetRepository trajetRepository) {
         super(application);
 
-        this.application = application;
-
         repository = trajetRepository;
 
         observableTrajets = new MediatorLiveData<>();
@@ -41,7 +37,7 @@ public class TrajetListByCarViewModel extends AndroidViewModel {
         observableTrajets.setValue(null);
 
         LiveData<List<TrajetEntity>> trajetList =
-                repository.getTrajetByCarId(carId, application);
+                repository.getTrajetByCarId(carId);
 
         observableTrajets.addSource(trajetList, observableTrajets::setValue);
     }
@@ -52,7 +48,7 @@ public class TrajetListByCarViewModel extends AndroidViewModel {
 
     public void deleteTrajetViewModel(final TrajetEntity trajetEntity,
                                       OnAsyncEventListener callback) {
-        new DeleteTrajet(application, callback).execute(trajetEntity);
+        new DeleteTrajet(callback).execute(trajetEntity);
     }
 
     public static class Factory extends ViewModelProvider.NewInstanceFactory {
