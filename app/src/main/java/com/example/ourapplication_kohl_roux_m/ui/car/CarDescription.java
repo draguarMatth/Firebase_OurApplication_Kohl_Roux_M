@@ -13,12 +13,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 import androidx.annotation.NonNull;
 import androidx.core.view.GravityCompat;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.ourapplication_kohl_roux_m.R;
-import com.example.ourapplication_kohl_roux_m.dbClass.asynch.car.UpdateCar;
 import com.example.ourapplication_kohl_roux_m.dbClass.entities.CarEntity;
 import com.example.ourapplication_kohl_roux_m.ui.BaseActivity;
 import com.example.ourapplication_kohl_roux_m.util.OnAsyncEventListener;

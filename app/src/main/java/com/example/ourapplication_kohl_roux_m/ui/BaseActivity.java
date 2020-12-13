@@ -10,6 +10,8 @@ import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 import com.example.ourapplication_kohl_roux_m.ui.Settings.SettingsActivity;
 import com.example.ourapplication_kohl_roux_m.ui.car.ListMyActiveCars;
 import com.example.ourapplication_kohl_roux_m.ui.trajet.ListTrajet_BazActivity;
@@ -21,7 +23,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.ourapplication_kohl_roux_m.R;
-import com.example.ourapplication_kohl_roux_m.ui.car.ListAllMyCars;
 
 import java.util.Locale;
 

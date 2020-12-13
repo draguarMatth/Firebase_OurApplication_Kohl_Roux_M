@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageButton;
+
+import com.google.firebase.auth.FirebaseAuth;
+
 import androidx.annotation.NonNull;
 import androidx.core.view.GravityCompat;
 

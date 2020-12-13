@@ -12,6 +12,8 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 import androidx.annotation.NonNull;
 import androidx.core.view.GravityCompat;
 import androidx.lifecycle.ViewModelProviders;

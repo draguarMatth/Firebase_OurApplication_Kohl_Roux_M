@@ -1,12 +1,11 @@
 package com.example.ourapplication_kohl_roux_m.dbClass.Repository;
 
-import android.app.Application;
-
 import androidx.lifecycle.LiveData;
 
-import com.example.ourapplication_kohl_roux_m.BaseApp;
 import com.example.ourapplication_kohl_roux_m.dbClass.entities.TrajetEntity;
 import com.example.ourapplication_kohl_roux_m.util.OnAsyncEventListener;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.List;
 
@@ -29,7 +28,6 @@ public class TrajetRepository {
     }
 
     public LiveData<List<TrajetEntity>> getTrajets() {
-        return ((BaseApp) application).getDatabase().trajetDao().getAll();
 
         DatabaseReference reference = FirebaseDatabase.getInstance()
                 .getReference("trajets")
@@ -37,7 +35,7 @@ public class TrajetRepository {
         return new AllTripsLiveData(reference);
     }
 
-    public LiveData<List<TrajetEntity>> getTrajetsByCarId(final long carId {
+    public LiveData<List<TrajetEntity>> getTrajetsByCarId(final long carId) {
 
         DatabaseReference reference = FirebaseDatabase.getInstance()
                 .getReference("trajets")

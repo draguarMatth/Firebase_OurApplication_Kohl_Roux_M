@@ -1,162 +1,95 @@
 package com.example.ourapplication_kohl_roux_m.dbClass.entities;
 
-import android.os.Parcel;
-import android.os.Parcelable;
+import com.google.firebase.database.Exclude;
 
-import androidx.annotation.NonNull;
-import androidx.room.ColumnInfo;
-import androidx.room.Entity;
-import androidx.room.ForeignKey;
-import androidx.room.PrimaryKey;
+import java.util.HashMap;
+import java.util.Map;
 
-import static androidx.room.ForeignKey.CASCADE;
+public class TrajetEntity implements Comparable {
 
-@Entity(tableName = "trajets", foreignKeys = @ForeignKey(entity = CarEntity.class, parentColumns = "uid", childColumns = "Voiture_id", onDelete = CASCADE))
-public class TrajetEntity implements Comparable, Parcelable {
+    private String  uid;
+    private String namOfTrip;
+    private String date;
+    private String kmTot;
+    private String totRise;
+    private String totDeep;
+    private String gasolinTot;
+    private String electricityTot;
+    private String carRef;
 
-    public static final Parcelable.Creator<TrajetEntity> CREATOR = new Parcelable.Creator<TrajetEntity>() {
-        @Override
-        public TrajetEntity createFromParcel(Parcel source) {
-            return new TrajetEntity(source);
-        }
+    public TrajetEntity (){}
 
-        @Override
-        public TrajetEntity[] newArray(int size) {
-            return new TrajetEntity[size];
-        }
-    };
-    @PrimaryKey(autoGenerate = true)
-    public long uid;
-    @ColumnInfo(name = "Voiture_id")
-    @NonNull
-    public long carId;
-    @ColumnInfo(name = "Nom_trajet")
-    public String name;
-    @ColumnInfo(name = "Date")
-    @NonNull
-    public String date;
-    @ColumnInfo(name = "Distance")
-    public double kmTot;
-    @ColumnInfo(name = "Denivellation_positif")
-    public double totRise;
-    @ColumnInfo(name = "Denivellation_negatif")
-    public double totDeep;
-    @ColumnInfo(name = "Consommation_Essence")
-    public double gasolinTot;
-
-    @ColumnInfo(name = "Recharge_electrique")
-    public double electricityTot;
-
-    public TrajetEntity(@NonNull long carId, String name, @NonNull String date, double kmTot,
-                        double totRise, double totDeep, double gasolinTot, double electricityTot) {
-        this.carId = carId;
-        this.name = name;
-        this.kmTot = kmTot;
-        this.date = date;
-        this.totRise = totRise;
-        this.totDeep = totDeep;
-        this.gasolinTot = gasolinTot;
-        this.electricityTot = electricityTot;
-    }
-
-    public TrajetEntity(Parcel in) {
-        uid = in.readLong();
-        carId = in.readLong();
-        name = in.readString();
-        date = in.readString();
-        kmTot = in.readDouble();
-        totRise = in.readDouble();
-        totDeep = in.readDouble();
-        gasolinTot = in.readDouble();
-        electricityTot = in.readDouble();
-    }
-
-    public long getUid() {
+    @Exclude
+    public String getUid() {
         return uid;
     }
 
-    public void setUid(long uid) {
+    public void setUid(String uid) {
         this.uid = uid;
     }
 
-    public String getName() {
-        return name;
+    public String getNamOfTrip() {
+        return namOfTrip;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public long getCarId() {
-        return carId;
-    }
-
-    public void setCarId(long carId) {
-        this.carId = carId;
-    }
-
-    public double getKmTot() {
-        return kmTot;
-    }
-
-    public void setKmTot(double kmTot) {
-        this.kmTot = kmTot;
+    public void setNamOfTrip(String namOfTrip) {
+        this.namOfTrip = namOfTrip;
     }
 
     public String getDate() {
         return date;
     }
 
-    public void setDate(@NonNull String date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
-    public double getTotRise() {
+    public String getKmTot() {
+        return kmTot;
+    }
+
+    public void setKmTot(String kmTot) {
+        this.kmTot = kmTot;
+    }
+
+    public String getTotRise() {
         return totRise;
     }
 
-    public void setTotRise(double totRise) {
+    public void setTotRise(String totRise) {
         this.totRise = totRise;
     }
 
-    public double getTotDeep() {
+    public String getTotDeep() {
         return totDeep;
     }
 
-    public void setTotDeep(double totDeep) {
+    public void setTotDeep(String totDeep) {
         this.totDeep = totDeep;
     }
 
-    public double getGasolinTot() {
+    public String getGasolinTot() {
         return gasolinTot;
     }
 
-    public void setGasolinTot(double gasolinTot) {
+    public void setGasolinTot(String gasolinTot) {
         this.gasolinTot = gasolinTot;
     }
 
-    public void addGasolin(double gasolinTot) {
-        this.gasolinTot += gasolinTot;
-    }
-
-    public void removeGasolin(double gasolinTot) {
-        this.gasolinTot -= gasolinTot;
-    }
-
-    public double getElectricityTot() {
+    public String getElectricityTot() {
         return electricityTot;
     }
 
-    public void setElectricityTot(double electricityTot) {
+    public void setElectricityTot(String electricityTot) {
         this.electricityTot = electricityTot;
     }
 
-    public void addElectricity(double electricityTot) {
-        this.electricityTot += electricityTot;
+    public String getCarRef() {
+        return carRef;
     }
 
-    public void removeElectricity(double electricityTot) {
-        this.electricityTot -= electricityTot;
+    public void setCarRef(String carRef) {
+        this.carRef = carRef;
     }
 
     @Override
