@@ -1,5 +1,5 @@
 apply plugin: 'com.android.application'
-apply plugin: 'com.google.gms.google-services'données firebase à la racine du projet
+apply plugin: 'com.google.gms.google-services'
 
 android {
     compileSdkVersion 30

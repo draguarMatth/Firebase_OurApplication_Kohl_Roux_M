@@ -63,11 +63,13 @@ public class CarRepository {
 
     public void insert(final CarEntity carEntity, final OnAsyncEventListener callback) {
 
-        //       new CreateCar(callback).execute(carEntity);
+        DatabaseReference reference = FirebaseDatabase.getInstance()
+                .getReference("cars");
+        String key = reference.push().getKey();
 
         FirebaseDatabase.getInstance()
                 .getReference("cars")
-                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .child(key)
                 .setValue(carEntity, (databaseError, databaseReference) -> {
                     if (databaseError != null) {
                         callback.onFailure(databaseError.toException());
