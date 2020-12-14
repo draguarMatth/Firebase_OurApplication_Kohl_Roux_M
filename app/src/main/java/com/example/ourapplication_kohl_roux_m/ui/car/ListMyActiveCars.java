@@ -79,8 +79,6 @@ public class ListMyActiveCars extends BaseActivity {
             if (carsSL != null) {
                 cars = carsSL;
                 adapter.setData(cars);
-                String test  = cars.get(1).getUid();
-                System.out.println(test);
             }
         });
         recyclerView.setAdapter(adapter);
