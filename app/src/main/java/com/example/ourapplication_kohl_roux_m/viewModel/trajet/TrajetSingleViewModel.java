@@ -17,24 +17,24 @@ import com.example.ourapplication_kohl_roux_m.util.OnAsyncEventListener;
 public class TrajetSingleViewModel extends AndroidViewModel {
 
     private final TrajetRepository repository;
-    private final long carId;
-    private final String dateOfTrip;
+//    private final long carId;
+    private final String trajetId;
     private final MediatorLiveData<TrajetEntity> observableTrajet;
 
     public TrajetSingleViewModel(@NonNull Application application,
-                                 TrajetRepository trajetRepository, long carId, String dateOfTrip) {
+                                 TrajetRepository trajetRepository, String trajetId) {
         super(application);
 
         repository = trajetRepository;
-        this.carId = carId;
-        this.dateOfTrip = dateOfTrip;
+//        this.carId = carId;
+        this.trajetId = trajetId;
 
         observableTrajet = new MediatorLiveData<>();
 
         observableTrajet.setValue(null);
 
         LiveData<TrajetEntity> trajet =
-                repository.getOneTrajet(carId, dateOfTrip);
+                repository.getTrajetById(trajetId);
 
         observableTrajet.addSource(trajet, observableTrajet::setValue);
     }
@@ -59,19 +59,19 @@ public class TrajetSingleViewModel extends AndroidViewModel {
         private final Application application;
 
         private final TrajetRepository trajetRepository;
-        private long carId;
-        private String dateOfTrip;
+//        private long carId;
+        private String trajetId;
 
-        public Factory(@NonNull Application application, final long carId, final String dateOfTrip) {
+        public Factory(@NonNull Application application, final String trajetId) {
             this.application = application;
-            this.carId = carId;
-            this.dateOfTrip = dateOfTrip;
+//            this.carId = carId;
+            this.trajetId = trajetId;
             trajetRepository = ((BaseApp) application).getTrajetRepository();
         }
 
         @Override
         public <T extends ViewModel> T create(Class<T> modelClass) {
-            return (T) new TrajetSingleViewModel(application, trajetRepository, carId, dateOfTrip);
+            return (T) new TrajetSingleViewModel(application, trajetRepository, trajetId);
         }
     }
 

@@ -1,9 +1,11 @@
 package com.example.ourapplication_kohl_roux_m.dbClass.firebase;
 
-import androidx.lifecycle.LiveData;
-import androidx.annotation.NonNull;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+import androidx.lifecycle.LiveData;
+
+import com.example.ourapplication_kohl_roux_m.dbClass.entities.TrajetEntity;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -12,19 +14,17 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-import ch.hevs.aislab.demo.database.entity.AccountEntity;
+public class TripsListForOneCarLiveData extends LiveData<List<TrajetEntity>> {
 
-public class AccountListLiveData extends LiveData<List<AccountEntity>> {
-
-    private static final String TAG = "AccountListLiveData";
+    private static final String TAG = "CarLiveData";
 
     private final DatabaseReference reference;
-    private final String owner;
-    private final MyValueEventListener listener = new MyValueEventListener();
+    private final String carId;
+    private final TripsListForOneCarLiveData.MyValueEventListener listener = new TripsListForOneCarLiveData.MyValueEventListener();
 
-    public AccountListLiveData(DatabaseReference ref, String owner) {
+    public TripsListForOneCarLiveData(DatabaseReference ref) {
         reference = ref;
-        this.owner = owner;
+        carId = ref.getParent().getParent().getKey();
     }
 
     @Override
@@ -41,7 +41,7 @@ public class AccountListLiveData extends LiveData<List<AccountEntity>> {
     private class MyValueEventListener implements ValueEventListener {
         @Override
         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-            setValue(toAccounts(dataSnapshot));
+            setValue(getTrips(dataSnapshot));
         }
 
         @Override
@@ -50,14 +50,17 @@ public class AccountListLiveData extends LiveData<List<AccountEntity>> {
         }
     }
 
-    private List<AccountEntity> toAccounts(DataSnapshot snapshot) {
-        List<AccountEntity> accounts = new ArrayList<>();
+    private List<TrajetEntity> getTrips (DataSnapshot snapshot) {
+        List<TrajetEntity> trajets = new ArrayList<>();
+
         for (DataSnapshot childSnapshot : snapshot.getChildren()) {
-            AccountEntity entity = childSnapshot.getValue(AccountEntity.class);
-            entity.setId(childSnapshot.getKey());
-            entity.setOwner(owner);
-            accounts.add(entity);
+            if (!childSnapshot.getKey().isEmpty()) {
+                TrajetEntity trajet = new TrajetEntity();
+                trajet = childSnapshot.getValue(TrajetEntity.class);
+
+                trajets.add(trajet);
+            }
         }
-        return accounts;
+        return trajets;
     }
 }

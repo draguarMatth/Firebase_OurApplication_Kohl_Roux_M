@@ -1,7 +1,7 @@
 package com.example.ourapplication_kohl_roux_m.dbClass.dao;
 
 import android.database.sqlite.SQLiteConstraintException;
-
+/*
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
@@ -51,3 +51,4 @@ public interface DbCarDao {
     void deleteAll();
 
 }
+*/

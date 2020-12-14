@@ -50,10 +50,10 @@ public class RecyclerAdapterWithPicture<T> extends RecyclerView.Adapter<Recycler
         if (!item.getClass().equals(CarEntity.class)) {
             Log.i(getClass().toString(), "Data no corresponding");
         }
-        if (((CarEntity) item).getNickName().isEmpty())
+        if (((CarEntity) item).getNickname().isEmpty())
             holder.mTextView.setText(((CarEntity) item).getModel());
         else
-            holder.mTextView.setText(((CarEntity) item).getNickName());
+            holder.mTextView.setText(((CarEntity) item).getNickname());
 
         if (((CarEntity) item).getPicture() == 0)
             holder.imageView.setImageResource(R.drawable.simplex_car);
@@ -102,7 +102,7 @@ public class RecyclerAdapterWithPicture<T> extends RecyclerView.Adapter<Recycler
                         CarEntity newCarEntity = (CarEntity) data.get(newItemPosition);
                         CarEntity oldCarEntity = (CarEntity) mData.get(newItemPosition);
                         return Objects.equals(newCarEntity.getUid(), (oldCarEntity.getUid()))
-                                && Objects.equals(newCarEntity.getNickName(), oldCarEntity.getNickName());
+                                && Objects.equals(newCarEntity.getNickname(), oldCarEntity.getNickname());
                     }
 
                     return false;

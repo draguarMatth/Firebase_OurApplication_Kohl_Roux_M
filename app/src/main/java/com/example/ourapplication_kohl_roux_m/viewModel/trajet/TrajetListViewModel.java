@@ -33,7 +33,7 @@ public class TrajetListViewModel extends AndroidViewModel {
         observableTrajets.setValue(null);
 
         LiveData<List<TrajetEntity>> trajetList =
-                repository.getTrajet();
+                repository.getTrajets();
 
         // observe the changes of the entities from the database and forward them
         observableTrajets.addSource(trajetList, observableTrajets::setValue);
@@ -48,6 +48,10 @@ public class TrajetListViewModel extends AndroidViewModel {
 
     public void deleteTrajet(TrajetEntity trajet, OnAsyncEventListener callback) {
         repository.delete(trajet, callback);
+    }
+
+    public void insetTrajet(TrajetEntity trajet, OnAsyncEventListener callback) {
+        repository.insert(trajet, callback);
     }
 
     /**

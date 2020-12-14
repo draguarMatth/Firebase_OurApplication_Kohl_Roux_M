@@ -1,5 +1,4 @@
-package com.example.ourapplication_kohl_roux_m.dbClass.entity;
-
+package com.example.ourapplication_kohl_roux_m.dbClass.entities;
 
 import androidx.annotation.NonNull;
 
@@ -8,51 +7,87 @@ import com.google.firebase.database.Exclude;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CarEntity {
-    public long uid;
-    public String nickName;
+public class CarEntity implements Comparable {
+
+    public String uid;
+
+    public String nickname;
+
     public String carTradeMark;
+
     public String model;
-    public double consoEssence;
+
+    public double consoFuel;
+
     public double batteryPower;
+
     public String wheelSize;
+
     public boolean carForTrip;
+
     public int picture;
 
-    public CarEntity(){
+    public CarEntity (){}
 
+    public CarEntity(@NonNull String nickName, @NonNull String carTradeMark, @NonNull String model,
+                     @NonNull double consoEssence, double batteryPower, String wheelSize, @NonNull boolean carForTrip, int picture) {
+        this.nickname = nickName;
+        this.carTradeMark = carTradeMark;
+        this.model = model;
+        this.consoFuel = consoEssence;
+        this.batteryPower = batteryPower;
+        this.wheelSize = wheelSize;
+        this.carForTrip = carForTrip;
+        this.picture = picture;
     }
 
-    public long getUid() {
+    @Exclude
+    public String getUid() {
         return uid;
     }
 
-    public void setUid(long uid) {
+    public void setUid(String uid) {
         this.uid = uid;
     }
 
-    public String getNickName() {
-        return nickName;
+   public String getNickname() {
+        return nickname;
     }
 
-    public void setNickName(String nickName) {
-        this.nickName = nickName;
+    public void setNickname(String nickName) {
+        this.nickname = nickName;
     }
 
     public String getCarTradeMark() {
         return carTradeMark;
     }
 
+    public void setCarTradeMark(String carTradeMark) {
+        this.carTradeMark = carTradeMark;
+    }
+
     public String getModel() {
         return model;
     }
 
-    public double getConsoEssence() {
-        return consoEssence;
+    public void setModel(String model) {
+        this.model = model;
+    }
+
+    public double getConsoFuel() {
+        return consoFuel;
+    }
+
+    public void setConsoFuel(double consoFuel) {
+        this.consoFuel = consoFuel;
     }
 
     public double getBatteryPower() {
         return batteryPower;
+    }
+
+    public void setBatteryPower(double batteryPower) {
+        this.batteryPower = batteryPower;
     }
 
     public int getPicture() {
@@ -83,26 +118,34 @@ public class CarEntity {
     public boolean equals(Object obj) {
         if (obj == null) return false;
         if (obj == this) return true;
-        if (!(obj instanceof com.example.ourapplication_kohl_roux_m.dbClass.entity.CarEntity)) return false;
-        com.example.ourapplication_kohl_roux_m.dbClass.entity.CarEntity o = (com.example.ourapplication_kohl_roux_m.dbClass.entity.CarEntity) obj;
+        if (!(obj instanceof CarEntity)) return false;
+        CarEntity o = (CarEntity) obj;
         return o.getUid() == this.getUid();
     }
 
     @Override
     public String toString() {
-        return uid + " / " + nickName;
+        return uid + " / " + nickname;
+    }
+
+    @Override
+    public int compareTo(@NonNull Object o) {
+        return toString().compareTo(o.toString());
     }
 
     @Exclude
     public Map<String, Object> toMap() {
         HashMap<String, Object> result = new HashMap<>();
-        result.put("name", nickName);
-        result.put("model", model);
-        result.put("consoEssence", consoEssence);
-        result.put("batteryPower", batteryPower);
+        result.put("Nickname", nickname);
+        result.put("Marque", carTradeMark);
+        result.put("Model", model);
+        result.put("consoFuel", consoFuel);
+        result.put("batteryCapacity", batteryPower);
         result.put("wheelSize", wheelSize);
-        result.put("carForTrip", carForTrip);
+        result.put("activity", carForTrip);
+        result.put("picture", picture);
 
         return result;
     }
 }
+

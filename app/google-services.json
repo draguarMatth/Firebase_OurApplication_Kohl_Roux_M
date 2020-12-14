@@ -1,33 +1,34 @@
 {
   "project_info": {
-    "project_number": "482800501734",
-    "project_id": "ourapplication-kohl-roux-m",
-    "storage_bucket": "ourapplication-kohl-roux-m.appspot.com"
+    "project_number": "549708156160",
+    "firebase_url": "https://fir-ourapplicationkohlroux-default-rtdb.firebaseio.com",
+    "project_id": "fir-ourapplicationkohlroux",
+    "storage_bucket": "fir-ourapplicationkohlroux.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:482800501734:android:654a021c9a09bda0f3cc27",
+        "mobilesdk_app_id": "1:549708156160:android:6f6d07d7f9bb2c0aabf7e5",
         "android_client_info": {
           "package_name": "com.example.ourapplication_kohl_roux_m"
         }
       },
       "oauth_client": [
         {
-          "client_id": "482800501734-crstrd6mumrvbos89asad4s9qi8lkfpf.apps.googleusercontent.com",
+          "client_id": "549708156160-9khs74h53ugb9q55rhdk1fstbcuh6h75.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAWwL4cYeY3nQBFyH9CXHNTh6H1uyH3dJk"
+          "current_key": "AIzaSyCH7rlZ5pEFClQ_OLNJcpwnLhdBizMrY84"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "482800501734-crstrd6mumrvbos89asad4s9qi8lkfpf.apps.googleusercontent.com",
+              "client_id": "549708156160-9khs74h53ugb9q55rhdk1fstbcuh6h75.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

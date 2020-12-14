@@ -39,14 +39,14 @@ public class CarDescription extends BaseActivity {
 
     private CarSingleViewModel viewModel;
     private CarEntity carEntity;
-    private long carId;
+    private String carId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getLayoutInflater().inflate(R.layout.activity_modify_car, frameLayout);
 
-        carId = (long) getIntent().getExtras().get("CarId");
+        carId = (String) getIntent().getExtras().get("CarId");
 
         setTitle(getString(R.string.car_desc));
         navigationView.setCheckedItem(position);
@@ -84,7 +84,7 @@ public class CarDescription extends BaseActivity {
 
         Toast toastSuccess = Toast.makeText(this, getString(R.string.car_data_mod), Toast.LENGTH_LONG);
         Toast toastFailed = Toast.makeText(this, getString(R.string.car_failed_mod), Toast.LENGTH_LONG);
-
+/*
         new UpdateCar(getApplication(), new OnAsyncEventListener() {
             @Override
             public void onSuccess() {
@@ -101,6 +101,8 @@ public class CarDescription extends BaseActivity {
             }
         }).execute(newCar);
 
+ */
+
     }
 
     @Override
@@ -116,7 +118,7 @@ public class CarDescription extends BaseActivity {
 
     private void setupUi() {
 
-        txtVwNickname.setText(carEntity.getNickName());
+        txtVwNickname.setText(carEntity.getNickname());
 
         if (carEntity.isCarForTrip())
             chkBoxActivity.setChecked(true);
@@ -124,7 +126,7 @@ public class CarDescription extends BaseActivity {
         chkBoxActivity.setActivated(true);
 
         fab.setOnClickListener(view -> {
-            carEntity.setNickName(txtVwNickname.getText().toString());
+            carEntity.setNickname(txtVwNickname.getText().toString());
             if(chkBoxActivity.isChecked())
                 carEntity.setCarForTrip(true);
             else

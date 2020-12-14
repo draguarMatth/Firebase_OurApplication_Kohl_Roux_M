@@ -11,22 +11,17 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.ourapplication_kohl_roux_m.BaseApp;
 import com.example.ourapplication_kohl_roux_m.dbClass.Repository.CarRepository;
-import com.example.ourapplication_kohl_roux_m.dbClass.entity.CarEntity;
+import com.example.ourapplication_kohl_roux_m.dbClass.entities.CarEntity;
 import com.example.ourapplication_kohl_roux_m.util.OnAsyncEventListener;
 
 public class CarSingleViewModel extends AndroidViewModel {
 
-    private final Application application;
-
     private final CarRepository repository;
     private final MediatorLiveData<CarEntity> observableCar;
 
-    public CarSingleViewModel(@NonNull Application application,
-                              final long carId,
+    public CarSingleViewModel(final String carId, @NonNull Application application,
                               CarRepository carRepository) {
         super(application);
-
-        this.application = application;
 
         repository = carRepository;
 
@@ -34,7 +29,7 @@ public class CarSingleViewModel extends AndroidViewModel {
         // set by default null, until we get data from the database.
         observableCar.setValue(null);
 
-        LiveData<CarEntity> car =
+       LiveData<CarEntity> car =
                 repository.getCar(carId);
 
 
@@ -63,9 +58,9 @@ public class CarSingleViewModel extends AndroidViewModel {
 
         private final CarRepository repository;
 
-        private long carId;
+        private String carId;
 
-        public Factory(final long carId, @NonNull Application application) {
+        public Factory(final String carId, @NonNull Application application) {
             this.application = application;
             this.carId = carId;
             repository = ((BaseApp) application).getCarRepository();

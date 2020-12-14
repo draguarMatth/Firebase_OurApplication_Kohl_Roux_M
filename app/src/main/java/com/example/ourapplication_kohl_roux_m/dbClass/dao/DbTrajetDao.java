@@ -1,5 +1,5 @@
 package com.example.ourapplication_kohl_roux_m.dbClass.dao;
-
+/*
 import android.database.sqlite.SQLiteConstraintException;
 
 import androidx.lifecycle.LiveData;
@@ -74,3 +74,4 @@ public interface DbTrajetDao {
     void deleteAll();
 
 }
+*/

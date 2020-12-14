@@ -1,5 +1,7 @@
 package com.example.ourapplication_kohl_roux_m.dbClass.entities;
 
+import androidx.annotation.NonNull;
+
 import com.google.firebase.database.Exclude;
 
 import java.util.HashMap;
@@ -19,6 +21,18 @@ public class TrajetEntity implements Comparable {
 
     public TrajetEntity (){}
 
+    public TrajetEntity(@NonNull String carId, String name, @NonNull String date, double kmTot,
+                        double totRise, double totDeep, double gasolinTot, double electricityTot) {
+        this.carRef = carId;
+        this.namOfTrip = name;
+        this.kmTot = kmTot;
+        this.date = date;
+        this.totRise = totRise;
+        this.totDeep = totDeep;
+        this.gasolinTot = gasolinTot;
+        this.electricityTot = electricityTot;
+    }
+
     @Exclude
     public String getUid() {
         return uid;
@@ -36,11 +50,12 @@ public class TrajetEntity implements Comparable {
         this.namOfTrip = namOfTrip;
     }
 
+    @Exclude
     public String getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(@NonNull String date) {
         this.date = date;
     }
 
@@ -84,6 +99,7 @@ public class TrajetEntity implements Comparable {
         this.electricityTot = electricityTot;
     }
 
+    @Exclude
     public String getCarRef() {
         return carRef;
     }

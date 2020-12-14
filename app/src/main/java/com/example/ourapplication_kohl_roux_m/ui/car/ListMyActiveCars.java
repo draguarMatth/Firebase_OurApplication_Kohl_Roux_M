@@ -42,7 +42,7 @@ public class ListMyActiveCars extends BaseActivity {
     private List<CarEntity> cars;
     private RecyclerAdapterWithPicture<CarEntity> adapter;
     private CarMyListViewModel viewModel;
-    private long carId;
+    private String carId;
 
 
     @Override
@@ -96,7 +96,7 @@ public class ListMyActiveCars extends BaseActivity {
         alertDialog.setCancelable(true);
 
         final TextView deleteMessage = view.findViewById(R.id.tv_delete_item);
-        deleteMessage.setText(getString(R.string.warining_car) + car.getNickName() + getString(R.string.model) + car.getModel() + getString(R.string.lost_car));
+        deleteMessage.setText(getString(R.string.warining_car) + car.getNickname() + getString(R.string.model) + car.getModel() + getString(R.string.lost_car));
 
         alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.delete), (dialog, which) -> {
             Toast toast = Toast.makeText(this, getString(R.string.Cars_w_deleted_r), Toast.LENGTH_LONG);
@@ -151,7 +151,7 @@ public class ListMyActiveCars extends BaseActivity {
             @Override
             public void onItemClick(View v, int position) {
                 Log.d(TAG, "clicked position:" + position);
-                Log.d(TAG, "clicked on: " + cars.get(position).getModel() + cars.get(position).getNickName());
+                Log.d(TAG, "clicked on: " + cars.get(position).getModel() + cars.get(position).getNickname());
 
                 CarEntity car = cars.get(position);
                 carId = car.getUid();
@@ -163,7 +163,7 @@ public class ListMyActiveCars extends BaseActivity {
             @Override
             public void onItemLongClick(View v, int position) {
                 Log.d(TAG, "longClicked position:" + position);
-                Log.d(TAG, "clicked on: " + cars.get(position).getModel() + cars.get(position).getNickName());
+                Log.d(TAG, "clicked on: " + cars.get(position).getModel() + cars.get(position).getNickname());
                 createDeleteDialog(position);
             }
         });
