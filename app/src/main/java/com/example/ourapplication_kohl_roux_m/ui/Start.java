@@ -72,6 +72,19 @@ public class Start extends AppCompatActivity {
                 }
             }
         });
+
+
+
+        /*  CarEntity carEntity = new CarEntity("titine", "Hyundahi", "Bionic", 1.1, 8.9, "205 55 R16", true, 0);
+         CarEntity carEntity = new CarEntity("CharAbeuh", "Fourragie", "TTonic", 3.4, 7.2, "", true, R.drawable.i8);
+
+        TrajetEntity trajetEntity = new TrajetEntity( 1, "Anonymous", "07 novembre 2020", 0, 0, 0, 0, 0);
+       TrajetEntity trajetEntity = new TrajetEntity( 1, "Jvéoboulo", "07.11.2019", 152.3, 3, 4, 5, 95);
+        TrajetEntity trajetEntity = new TrajetEntity(2, "", "24.02.2020", 64.8, 12, 3, 42.3, 56.4);
+        TrajetEntity trajetEntity = new TrajetEntity( 2, "Parlavass", "12.08.2020", 152.3, 3, 4, 12.6, 60);
+    */
+
+
     }
 
 

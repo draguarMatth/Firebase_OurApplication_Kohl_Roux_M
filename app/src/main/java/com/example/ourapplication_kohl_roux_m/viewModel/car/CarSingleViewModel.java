@@ -16,16 +16,12 @@ import com.example.ourapplication_kohl_roux_m.util.OnAsyncEventListener;
 
 public class CarSingleViewModel extends AndroidViewModel {
 
-    private final Application application;
-
     private final CarRepository repository;
     private final MediatorLiveData<CarEntity> observableCar;
 
-    public CarSingleViewModel(final long carId, @NonNull Application application,
+    public CarSingleViewModel(final String carId, @NonNull Application application,
                               CarRepository carRepository) {
         super(application);
-
-        this.application = application;
 
         repository = carRepository;
 
@@ -33,8 +29,8 @@ public class CarSingleViewModel extends AndroidViewModel {
         // set by default null, until we get data from the database.
         observableCar.setValue(null);
 
-        LiveData<CarEntity> car =
-                repository.getCar(carId, application);
+       LiveData<CarEntity> car =
+                repository.getCar(carId);
 
 
         // observe the changes of the entities from the database and forward them
@@ -62,9 +58,9 @@ public class CarSingleViewModel extends AndroidViewModel {
 
         private final CarRepository repository;
 
-        private long carId;
+        private String carId;
 
-        public Factory(final long carId, @NonNull Application application) {
+        public Factory(final String carId, @NonNull Application application) {
             this.application = application;
             this.carId = carId;
             repository = ((BaseApp) application).getCarRepository();

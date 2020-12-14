@@ -3,7 +3,13 @@ package com.example.ourapplication_kohl_roux_m.dbClass.Repository;
 import androidx.lifecycle.LiveData;
 
 import com.example.ourapplication_kohl_roux_m.dbClass.entities.TrajetEntity;
+import com.example.ourapplication_kohl_roux_m.dbClass.firebase.AllTripsLiveData;
+import com.example.ourapplication_kohl_roux_m.dbClass.firebase.OneTripByCarLiveData;
+import com.example.ourapplication_kohl_roux_m.dbClass.firebase.OneTripByIdLiveData;
+import com.example.ourapplication_kohl_roux_m.dbClass.firebase.TripByNameLiveData;
+import com.example.ourapplication_kohl_roux_m.dbClass.firebase.TripsListForOneCarLiveData;
 import com.example.ourapplication_kohl_roux_m.util.OnAsyncEventListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -30,49 +36,39 @@ public class TrajetRepository {
     public LiveData<List<TrajetEntity>> getTrajets() {
 
         DatabaseReference reference = FirebaseDatabase.getInstance()
-                .getReference("trajets")
-                .child(getTrajets());
+                .getReference("trajets");
         return new AllTripsLiveData(reference);
-    }
-
-    public LiveData<List<TrajetEntity>> getTrajetsByCarId(final long carId) {
-
-        DatabaseReference reference = FirebaseDatabase.getInstance()
-                .getReference("trajets")
-                .child(getTrajetsByCarId(carId));
-        return new AllTripsByCarLiveData(reference, carId);
     }
 
     public LiveData<List<TrajetEntity>> getTrajetByName(final String name) {
 
         DatabaseReference reference = FirebaseDatabase.getInstance()
-                .getReference("trajets")
-                .child(getTrajetByName(name));
+                .getReference("trajets");
         return new TripByNameLiveData(reference, name);
-
     }
 
-    public LiveData <TrajetEntity> getTrajetById(final long trajetId) {
+    public LiveData <TrajetEntity> getTrajetById(final String trajetId) {
 
         DatabaseReference reference = FirebaseDatabase.getInstance()
-                .getReference("trajets")
-                .child(getTrajetById(trajetId));
+                .getReference("trajets");
         return new OneTripByIdLiveData(reference, trajetId);
     }
 
-    public LiveData <TrajetEntity> getOneTrajet(final long carId, final String dateOfTrip) {
-
-        // return ((BaseApp) application).getDatabase().trajetDao().getOneByCar(carId, dateOfTrip);
+    public LiveData <TrajetEntity> getOneTrajet(final String carId, final String dateOfTrip) {
 
         DatabaseReference reference = FirebaseDatabase.getInstance()
-                .getReference("trajets")
-                .child(getOneTrajet(carId,dateOfTrip));
-        return new OneTripByCarLiveData(reference, carId,dateOfTrip);
+                .getReference("trajets");
+        return new OneTripByCarLiveData(reference, carId, dateOfTrip);
+    }
+
+    public LiveData <List<TrajetEntity>> getTrajetByCarId() {
+
+        DatabaseReference reference = FirebaseDatabase.getInstance()
+                .getReference("trajets");
+        return new TripsListForOneCarLiveData(reference);
     }
 
     public void insert(final TrajetEntity trajetEntity, OnAsyncEventListener callback) {
-
- //       new CreateTrajet(application, callback).execute(trajetEntity);
 
         FirebaseDatabase.getInstance()
                 .getReference("trajets")
@@ -84,12 +80,9 @@ public class TrajetRepository {
                         callback.onSuccess();
                     }
                 });
-
     }
 
     public void update(final TrajetEntity trajetEntity, OnAsyncEventListener callback) {
-
-        // new UpdateTrajet(application, callback).execute(trajetEntity);
 
         FirebaseDatabase.getInstance()
                 .getReference("cars")
@@ -104,8 +97,6 @@ public class TrajetRepository {
     }
 
     public void delete(final TrajetEntity trajetEntity, OnAsyncEventListener callback) {
-
-        // new DeleteTrajet(application, callback).execute(trajetEntity);
 
         FirebaseDatabase.getInstance()
                 .getReference("cars")

@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.ourapplication_kohl_roux_m.BaseApp;
 import com.example.ourapplication_kohl_roux_m.dbClass.Repository.CarRepository;
 import com.example.ourapplication_kohl_roux_m.dbClass.entities.CarEntity;
+import com.example.ourapplication_kohl_roux_m.dbClass.pojo.CarRoadTrips;
 import com.example.ourapplication_kohl_roux_m.util.OnAsyncEventListener;
 
 import java.util.List;
@@ -19,7 +20,7 @@ import java.util.List;
 public class AllMyCarsListViewModel extends AndroidViewModel {
 
         private final CarRepository repository;
-        private final MediatorLiveData<List<CarEntity>> observableCars;
+        private final MediatorLiveData<List<CarRoadTrips>> observableCars;
 
         public AllMyCarsListViewModel(@NonNull Application application,
                                   CarRepository carRepository) {
@@ -31,7 +32,7 @@ public class AllMyCarsListViewModel extends AndroidViewModel {
             // set by default null, until we get data from the database.
             observableCars.setValue(null);
 
-            LiveData<List<CarEntity>> carList =
+            LiveData<List<CarRoadTrips>> carList =
                     repository.getAllCar();
 
 
@@ -42,7 +43,7 @@ public class AllMyCarsListViewModel extends AndroidViewModel {
         /**
          * Expose the LiveData MyCars query so the UI can observe it.
          */
-        public LiveData<List<CarEntity>> getAllMyCarsViewMod() {
+        public LiveData<List<CarRoadTrips>> getAllMyCarsViewMod() {
             return observableCars;
         }
 

@@ -61,6 +61,7 @@ public class NewTrajetConsumptionInput extends BaseActivity {
     private TrajetSingleViewModel viewModel;
     private TrajetEntity upDTrajet;
     private String trajetDate;
+    private String trajetId;
     private long carId;
     private RecyclerAdapter<String> electAdapter;
     private List<String> electInputs;
@@ -81,7 +82,7 @@ public class NewTrajetConsumptionInput extends BaseActivity {
         bundle = previousIntent.getExtras();
         trajetDate = (String) bundle.get("TrajetDate");
         carId = (long) bundle.get("CarId");
-        trajetDate = (String) bundle.get("TrajetDate");
+        trajetId = (String) bundle.get("TrajetId");
 
         setTitle(getString(R.string.consommation));
         navigationView.setCheckedItem(position);
@@ -194,7 +195,7 @@ public class NewTrajetConsumptionInput extends BaseActivity {
 
 
             TrajetSingleViewModel.Factory factory = new TrajetSingleViewModel.Factory(
-                    getApplication(), carId, trajetDate);
+                    getApplication(), trajetId);
             viewModel = new ViewModelProvider(this, factory).get(TrajetSingleViewModel.class);
             viewModel.getSingleTripviewMod().observe(this, trajetL -> {
                 if (trajetL != null) {

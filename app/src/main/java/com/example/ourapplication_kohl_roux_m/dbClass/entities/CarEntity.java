@@ -1,83 +1,94 @@
 package com.example.ourapplication_kohl_roux_m.dbClass.entities;
 
 import androidx.annotation.NonNull;
-import androidx.room.ColumnInfo;
-import androidx.room.Entity;
-import androidx.room.PrimaryKey;
 
-@Entity(tableName = "cars")
+import com.google.firebase.database.Exclude;
+
+import java.util.HashMap;
+import java.util.Map;
+
 public class CarEntity implements Comparable {
 
-    @ColumnInfo(name = "uid")
-    @PrimaryKey(autoGenerate = true)
-    public long uid;
+    @Exclude
+    public String uid;
 
-    @ColumnInfo(name = "Nickname")
-    public String nickName;
+    public String nickname;
 
-    @ColumnInfo(name = "Marque")
-    @NonNull
     public String carTradeMark;
 
-    @ColumnInfo(name = "model")
-    @NonNull
     public String model;
 
-    @ColumnInfo(name = "conso_essence")
-    @NonNull
-    public double consoEssence;
+    public double consoFuel;
 
-    @ColumnInfo(name = "charge_batterie")
     public double batteryPower;
 
-    @ColumnInfo(name = "taille_jante")
     public String wheelSize;
 
-    @ColumnInfo(name = "active")
-    @NonNull
     public boolean carForTrip;
 
-    @ColumnInfo(name = "picture")
     public int picture;
+
+    public CarEntity (){}
 
     public CarEntity(@NonNull String nickName, @NonNull String carTradeMark, @NonNull String model,
                      @NonNull double consoEssence, double batteryPower, String wheelSize, @NonNull boolean carForTrip, int picture) {
-        this.nickName = nickName;
+        this.nickname = nickName;
         this.carTradeMark = carTradeMark;
         this.model = model;
-        this.consoEssence = consoEssence;
+        this.consoFuel = consoEssence;
         this.batteryPower = batteryPower;
         this.wheelSize = wheelSize;
         this.carForTrip = carForTrip;
         this.picture = picture;
     }
 
-    public long getUid() {
+    @Exclude
+    public String getUid() {
         return uid;
     }
 
-    public String getNickName() {
-        return nickName;
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
+
+   public String getNickName() {
+        return nickname;
     }
 
     public void setNickName(String nickName) {
-        this.nickName = nickName;
+        this.nickname = nickName;
     }
 
     public String getCarTradeMark() {
         return carTradeMark;
     }
 
+    public void setCarTradeMark(String carTradeMark) {
+        this.carTradeMark = carTradeMark;
+    }
+
     public String getModel() {
         return model;
     }
 
-    public double getConsoEssence() {
-        return consoEssence;
+    public void setModel(String model) {
+        this.model = model;
+    }
+
+    public double getConsoFuel() {
+        return consoFuel;
+    }
+
+    public void setConsoFuel(double consoFuel) {
+        this.consoFuel = consoFuel;
     }
 
     public double getBatteryPower() {
         return batteryPower;
+    }
+
+    public void setBatteryPower(double batteryPower) {
+        this.batteryPower = batteryPower;
     }
 
     public int getPicture() {
@@ -115,7 +126,7 @@ public class CarEntity implements Comparable {
 
     @Override
     public String toString() {
-        return uid + " / " + nickName;
+        return uid + " / " + nickname;
     }
 
     @Override
@@ -123,4 +134,19 @@ public class CarEntity implements Comparable {
         return toString().compareTo(o.toString());
     }
 
+    @Exclude
+    public Map<String, Object> toMap() {
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("Nickname", nickname);
+        result.put("Marque", carTradeMark);
+        result.put("Model", model);
+        result.put("consoFuel", consoFuel);
+        result.put("batteryCapacity", batteryPower);
+        result.put("wheelSize", wheelSize);
+        result.put("activity", carForTrip);
+        result.put("picture", picture);
+
+        return result;
+    }
 }
+

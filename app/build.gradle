@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.google.gms.google-services'données firebase à la racine du projet
 
 android {
     compileSdkVersion 30
@@ -51,6 +52,7 @@ dependencies {
     def firebase_version = "19.4.0"
     implementation "com.google.firebase:firebase-auth:$firebase_version"
     implementation "com.google.firebase:firebase-database:$firebase_version"
+    implementation platform('com.google.firebase:firebase-bom:26.1.1')
 
     //pour .csv
     implementation 'com.opencsv:opencsv:4.6'

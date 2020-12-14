@@ -42,7 +42,7 @@ public class ListMyActiveCars extends BaseActivity {
     private List<CarEntity> cars;
     private RecyclerAdapterWithPicture<CarEntity> adapter;
     private CarMyListViewModel viewModel;
-    private long carId;
+    private String carId;
 
 
     @Override

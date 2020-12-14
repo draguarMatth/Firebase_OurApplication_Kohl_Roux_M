@@ -2,7 +2,6 @@ package com.example.ourapplication_kohl_roux_m.ui.trajet;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.lifecycle.ViewModelProvider;
@@ -27,6 +26,7 @@ public class TrajetActivity extends BaseActivity {
     private Intent previousIntent;
     private TrajetSingleViewModel viewModel;
     private TrajetEntity trajet;
+    private String trajetId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +34,8 @@ public class TrajetActivity extends BaseActivity {
         getLayoutInflater().inflate(R.layout.activity_trajet, frameLayout);
         previousIntent = getIntent();
         bundle = previousIntent.getExtras();
+        trajetId = (String) bundle.get("TrajetId");
+
 
         setTitle("Détails Trajet");
         navigationView.setCheckedItem(position);
@@ -47,13 +49,13 @@ public class TrajetActivity extends BaseActivity {
 
         TrajetSingleViewModel.Factory factory = new TrajetSingleViewModel.Factory(
                 getApplication(),
-                FirebaseAuth.getInstance().getCurrentUser().getUid(carId, dateOfTrip)
+                FirebaseAuth.getInstance().getCurrentUser().getUid()
         );
         viewModel = new ViewModelProvider(this, factory).get(TrajetSingleViewModel.class);
         viewModel.getSingleTripviewMod().observe(this, trajetVM -> {
             if (trajetVM != null) {
                 trajet = trajetVM;
-                updateContent();
+  //              repository.updateContent(trajet, callback);
             }
         });
 

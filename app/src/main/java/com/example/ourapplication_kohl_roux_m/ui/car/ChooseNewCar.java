@@ -183,7 +183,7 @@ public class ChooseNewCar extends AppCompatActivity {
         final CarEntity car = newCar;
         Toast toastSuccess = Toast.makeText(this, getString(R.string.add_car_succes), Toast.LENGTH_LONG);
         Toast toastFailed = Toast.makeText(this, getString(R.string.add_car_failed), Toast.LENGTH_LONG);
-
+/*
         new CreateCar(getApplication(), new OnAsyncEventListener() {
                 @Override
                 public void onSuccess() {
@@ -199,6 +199,8 @@ public class ChooseNewCar extends AppCompatActivity {
                     toastFailed.show();
                 }
             }).execute(newCar);
+
+ */
     }
 
     @Override

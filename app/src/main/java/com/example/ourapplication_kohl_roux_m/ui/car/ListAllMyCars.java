@@ -41,7 +41,7 @@ public class ListAllMyCars extends BaseActivity {
     private List<CarEntity> cars;
     private RecyclerAdapterWithPicture<CarEntity> adapter;
     private AllMyCarsListViewModel viewModel;
-    private long carId;
+    private String carId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +67,7 @@ public class ListAllMyCars extends BaseActivity {
         viewModel = ViewModelProviders.of(this, factory).get(AllMyCarsListViewModel.class);
         viewModel.getAllMyCarsViewMod().observe(this, carsSL -> {
             if (carsSL != null) {
-                cars = carsSL;
+        //        cars = carsSL;
                 adapter.setData(cars);
             }
         });

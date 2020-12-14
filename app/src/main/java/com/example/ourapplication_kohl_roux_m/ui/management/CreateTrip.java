@@ -4,31 +4,20 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.google.firebase.auth.FirebaseAuth;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.GravityCompat;
 import androidx.annotation.NonNull;
 import androidx.core.view.GravityCompat;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.example.ourapplication_kohl_roux_m.R;
 import com.example.ourapplication_kohl_roux_m.dbClass.entities.TrajetEntity;
 import com.example.ourapplication_kohl_roux_m.ui.BaseActivity;
-import com.example.ourapplication_kohl_roux_m.R;
-import com.example.ourapplication_kohl_roux_m.ui.BaseActivity;
-import com.example.ourapplication_kohl_roux_m.ui.Settings.SettingsActivity;
-import com.example.ourapplication_kohl_roux_m.ui.trajet.ListTrajet_BazActivity;
 import com.example.ourapplication_kohl_roux_m.util.OnAsyncEventListener;
 import com.example.ourapplication_kohl_roux_m.viewModel.trajet.TrajetListViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
-import java.util.List;
+import com.google.firebase.auth.FirebaseAuth;
 
 
 public class CreateTrip extends BaseActivity {
@@ -44,6 +33,7 @@ public class CreateTrip extends BaseActivity {
     private long carId;
     private String trajetDate;
     private TrajetEntity newTrajet;
+    TrajetListViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,8 +82,15 @@ public class CreateTrip extends BaseActivity {
 
     private void saveChanges(String name, String date, long carID) {
 
-        newTrajet = new TrajetEntity(carId, nameNewTrip, dateNewTrip, 0,
+        setupViewModels();
+
+
+
+ /*       newTrajet = new TrajetEntity(carId, nameNewTrip, dateNewTrip, 0,
                 0, 0, 0, 0);
+
+
+
 
         new CreateTrajet(getApplication(), new OnAsyncEventListener() {
             @Override
@@ -113,6 +110,26 @@ public class CreateTrip extends BaseActivity {
             }
 
         }).execute(newTrajet);
+*/
+        viewModel.insetTrajet(newTrajet,new OnAsyncEventListener() {
+            @Override
+            public void onSuccess() {
+                Log.d(TAG, "IsertTrip: success");
+            }
+
+            @Override
+            public void onFailure(Exception e) {
+                Log.d(TAG, "IsertTrip: failure", e);
+            }
+        });
+
+    }
+
+    private void setupViewModels() {
+        TrajetListViewModel.Factory factory = new TrajetListViewModel.Factory(getApplication());
+
+        viewModel = new ViewModelProvider(this, factory).get(TrajetListViewModel.class);
+
     }
 
     private void setResponse(Boolean response) {

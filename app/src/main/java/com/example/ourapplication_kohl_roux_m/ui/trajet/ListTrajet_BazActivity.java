@@ -10,12 +10,9 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.firebase.auth.FirebaseAuth;
-
 import androidx.annotation.NonNull;
 import androidx.core.view.GravityCompat;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -24,7 +21,6 @@ import com.example.ourapplication_kohl_roux_m.R;
 import com.example.ourapplication_kohl_roux_m.adapter.RecyclerAdapter;
 import com.example.ourapplication_kohl_roux_m.dbClass.entities.TrajetEntity;
 import com.example.ourapplication_kohl_roux_m.ui.BaseActivity;
-import com.example.ourapplication_kohl_roux_m.ui.Settings.SettingsActivity;
 import com.example.ourapplication_kohl_roux_m.ui.management.CreateTrip;
 import com.example.ourapplication_kohl_roux_m.util.OnAsyncEventListener;
 import com.example.ourapplication_kohl_roux_m.util.RecyclerViewItemClickListener;
@@ -44,7 +40,7 @@ public class ListTrajet_BazActivity extends BaseActivity {
     private List<TrajetEntity> trajets;
     private RecyclerAdapter<TrajetEntity> adapter;
     private TrajetListByCarViewModel viewModel;
-    public long carId;
+    public String carId;
 
 
     @Override
@@ -58,7 +54,7 @@ public class ListTrajet_BazActivity extends BaseActivity {
         RecyclerView recyclerView = findViewById(R.id.trajetsRecyclerView);
         previousIntent = getIntent();
         bundle = previousIntent.getExtras();
-        carId = (long) bundle.get("CarId");
+        carId = (String) bundle.get("CarId");
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
@@ -82,7 +78,7 @@ public class ListTrajet_BazActivity extends BaseActivity {
             @Override
             public void onItemClick(View v, int position) {
                 Log.d(TAG, "clicked position:" + position);
-                Log.d(TAG, "clicked on: " + trajets.get(position).getName());
+                Log.d(TAG, "clicked on: " + trajets.get(position).getNamOfTrip());
 
                 TrajetEntity trajet = trajets.get(position);
                 Intent intent = new Intent(ListTrajet_BazActivity.this, TrajetActivity.class);
@@ -90,16 +86,14 @@ public class ListTrajet_BazActivity extends BaseActivity {
                         Intent.FLAG_ACTIVITY_NO_ANIMATION |
                                 Intent.FLAG_ACTIVITY_NO_HISTORY
                 );
-                intent.putExtra("Trajet", trajet);
                 intent.putExtra("TrajetId", trajets.get(position).getUid());
-                intent.putExtra("CardId", carId);
                 startActivity(intent);
             }
 
             @Override
             public void onItemLongClick(View v, int position) {
                 Log.d(TAG, "longClicked position:" + position);
-                Log.d(TAG, "longClicked on: " + trajets.get(position).getName());
+                Log.d(TAG, "longClicked on: " + trajets.get(position).getNamOfTrip());
                 createDeleteDialog(position);
             }
         });
@@ -145,7 +139,7 @@ public class ListTrajet_BazActivity extends BaseActivity {
         alertDialog.setCancelable(true);
 
         final TextView deleteMessage = view.findViewById(R.id.tv_delete_item);
-        deleteMessage.setText("Attention, " + trajet.getName() + ", sera définitivement perdu !");
+        deleteMessage.setText("Attention, " + trajet.getNamOfTrip() + ", sera définitivement perdu !");
 
         alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Effacer", (dialog, which) -> {
             Toast toast = Toast.makeText(this, "Trajet effacé.", Toast.LENGTH_LONG);

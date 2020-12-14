@@ -1,27 +1,32 @@
 package com.example.ourapplication_kohl_roux_m.dbClass.firebase;
 
-import androidx.lifecycle.LiveData;
-import androidx.annotation.NonNull;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+import androidx.lifecycle.LiveData;
+
+import com.example.ourapplication_kohl_roux_m.dbClass.entities.CarEntity;
+import com.example.ourapplication_kohl_roux_m.dbClass.entities.TrajetEntity;
+import com.example.ourapplication_kohl_roux_m.dbClass.pojo.CarRoadTrips;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
-import ch.hevs.aislab.demo.database.entity.AccountEntity;
+import java.util.ArrayList;
+import java.util.List;
 
-public class AccountLiveData extends LiveData<AccountEntity> {
+public class CarLiveData extends LiveData <CarEntity> {
 
-    private static final String TAG = "AccountLiveData";
+    private static final String TAG = "CarLiveData";
 
     private final DatabaseReference reference;
-    private final String owner;
-    private final MyValueEventListener listener = new MyValueEventListener();
+    private final String carId;
+    private final CarLiveData.MyValueEventListener listener = new CarLiveData.MyValueEventListener();
 
-    public AccountLiveData(DatabaseReference ref) {
+    public CarLiveData(DatabaseReference ref) {
         reference = ref;
-        owner = ref.getParent().getParent().getKey();
+        carId = ref.getParent().getParent().getKey();
     }
 
     @Override
@@ -38,9 +43,8 @@ public class AccountLiveData extends LiveData<AccountEntity> {
     private class MyValueEventListener implements ValueEventListener {
         @Override
         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-            AccountEntity entity = dataSnapshot.getValue(AccountEntity.class);
-            entity.setId(dataSnapshot.getKey());
-            entity.setOwner(owner);
+            CarEntity entity = dataSnapshot.getValue(CarEntity.class);
+            entity.setUid(dataSnapshot.getKey());
             setValue(entity);
         }
 
@@ -49,4 +53,5 @@ public class AccountLiveData extends LiveData<AccountEntity> {
             Log.e(TAG, "Can't listen to query " + reference, databaseError.toException());
         }
     }
+
 }
