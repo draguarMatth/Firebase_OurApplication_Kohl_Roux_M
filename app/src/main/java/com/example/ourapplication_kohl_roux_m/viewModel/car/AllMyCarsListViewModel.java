@@ -23,7 +23,7 @@ public class AllMyCarsListViewModel extends AndroidViewModel {
         private final MediatorLiveData<List<CarRoadTrips>> observableCars;
 
         public AllMyCarsListViewModel(@NonNull Application application,
-                                  carRepositor carRepository) {
+                                  CarRepository carRepository) {
             super(application);
 
             repository = carRepository;

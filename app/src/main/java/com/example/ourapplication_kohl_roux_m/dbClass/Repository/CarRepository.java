@@ -47,8 +47,6 @@ public class CarRepository {
  //       LiveData<List<CarEntity>> carsLiveD = ((BaseApp) application).getDatabase().carDao().getByActivity();
  //       List<CarEntity> cars = carsLiveD.getValue();
 
-        String activityValue;
-
         DatabaseReference reference = FirebaseDatabase.getInstance()
                 .getReference("cars");
 

@@ -16,6 +16,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import androidx.annotation.NonNull;
 import androidx.core.view.GravityCompat;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -73,14 +74,15 @@ public class ListMyActiveCars extends BaseActivity {
 
         CarMyListViewModel.Factory factory = new CarMyListViewModel.Factory(
                 getApplication());
-        viewModel = ViewModelProviders.of(this, factory).get(CarMyListViewModel.class);
+        viewModel = new ViewModelProvider(this, factory).get(CarMyListViewModel.class);
         viewModel.getMyCarsViewMod().observe(this, carsSL -> {
             if (carsSL != null) {
                 cars = carsSL;
                 adapter.setData(cars);
+                String test  = cars.get(1).getUid();
+                System.out.println(test);
             }
         });
-
         recyclerView.setAdapter(adapter);
     }
 

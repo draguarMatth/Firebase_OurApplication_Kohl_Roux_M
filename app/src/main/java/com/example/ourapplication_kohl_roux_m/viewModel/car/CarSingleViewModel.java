@@ -18,11 +18,12 @@ public class CarSingleViewModel extends AndroidViewModel {
 
     private final CarRepository repository;
     private final MediatorLiveData<CarEntity> observableCar;
+    private final String carId;
 
     public CarSingleViewModel(final String carId, @NonNull Application application,
                               CarRepository carRepository) {
         super(application);
-
+        this.carId = carId;
         repository = carRepository;
 
         observableCar = new MediatorLiveData<>();

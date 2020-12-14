@@ -208,25 +208,6 @@ public class ChooseNewCar extends AppCompatActivity {
             }
 
         });
-
-/*
-        new CreateCar(getApplication(), new OnAsyncEventListener() {
-                @Override
-                public void onSuccess() {
-                    Log.d(TAG, getString(R.string.add_car_s));
-                    Intent intent = new Intent(ChooseNewCar.this, ListMyActiveCars.class);
-                    startActivity(intent);
-                    toastSuccess.show();
-                }
-
-                @Override
-                public void onFailure(Exception e) {
-                    Log.d(TAG, getString(R.string.add_car_f), e);
-                    toastFailed.show();
-                }
-            }).execute(newCar);
-
- */
     }
 
     @Override

@@ -78,11 +78,32 @@ public class ActiveCarsAndTheseTripsLiveData extends LiveData<List<CarEntity>> {
         List<CarEntity> carsList = new ArrayList<>();
         for (DataSnapshot childSnapshot : snapshot.getChildren()) {
             if (!childSnapshot.getKey().equals(carActivity)) {
-                CarEntity carEntity = new CarEntity();
+                CarEntity carEntity;
                 carEntity = childSnapshot.getValue(CarEntity.class);
                 carsList.add(carEntity);
             }
         }
+
+        /*
+        for (DataSnapshot childSnapshot : snapshot.getChildren()) {
+            if ((boolean)childSnapshot.child("activity").getValue() == carActivity) {
+                CarEntity carEntity;
+                carEntity = (CarEntity) childSnapshot.getValue();
+                carsList.add(carEntity);
+            }
+        }
+
+         */
+ /*
+        if (reference.child("activity").equals(carActivity)) {
+                CarEntity carEntity;
+                String key = reference.getKey();
+                carEntity = (CarEntity) snapshot.getValue();
+                carsList.add(carEntity);
+        }
+
+ */
+
         return carsList;
     }
 

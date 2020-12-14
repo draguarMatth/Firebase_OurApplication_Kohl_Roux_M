@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import android.util.Log;
 
+import com.example.ourapplication_kohl_roux_m.dbClass.entities.CarEntity;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -12,7 +13,6 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.example.ourapplication_kohl_roux_m.dbClass.entity.CarEntity;
 
 public class CarListliveData extends LiveData<List<CarEntity>> {
 
@@ -42,7 +42,7 @@ public class CarListliveData extends LiveData<List<CarEntity>> {
     private class MyValueEventListener implements ValueEventListener {
         @Override
         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-            setValue(toAccounts(dataSnapshot));
+            setValue(listMyCars(dataSnapshot));
         }
 
         @Override
@@ -51,14 +51,14 @@ public class CarListliveData extends LiveData<List<CarEntity>> {
         }
     }
 
-    private List<CarEntity> toAccounts(DataSnapshot snapshot) {
-        List<CarEntity> accounts = new ArrayList<>();
+    private List<CarEntity> listMyCars(DataSnapshot snapshot) {
+        List<CarEntity> cars = new ArrayList<>();
         for (DataSnapshot childSnapshot : snapshot.getChildren()) {
             CarEntity entity = childSnapshot.getValue(CarEntity.class);
-            entity.setUid(Long.parseLong(childSnapshot.getKey()));
-            entity.setNickName(nickname);
-            accounts.add(entity);
+            entity.setUid(childSnapshot.getKey());
+            entity.setNickname(nickname);
+            cars.add(entity);
         }
-        return accounts;
+        return cars;
     }
 }

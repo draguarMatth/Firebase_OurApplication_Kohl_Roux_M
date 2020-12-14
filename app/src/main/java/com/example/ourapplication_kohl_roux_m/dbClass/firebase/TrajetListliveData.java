@@ -5,7 +5,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 
-import com.example.ourapplication_kohl_roux_m.dbClass.entity.TrajetEntity;
+import com.example.ourapplication_kohl_roux_m.dbClass.entities.TrajetEntity;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -55,8 +55,8 @@ public class TrajetListliveData extends LiveData<List<TrajetEntity>> {
         List<TrajetEntity> accounts = new ArrayList<>();
         for (DataSnapshot childSnapshot : snapshot.getChildren()) {
             TrajetEntity entity = childSnapshot.getValue(TrajetEntity.class);
-            entity.setUid(Long.parseLong(childSnapshot.getKey()));
-            entity.setName(name);
+            entity.setUid(childSnapshot.getKey());
+            entity.setNamOfTrip(name);
             accounts.add(entity);
         }
         return accounts;

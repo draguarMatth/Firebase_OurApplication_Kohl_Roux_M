@@ -1,5 +1,6 @@
 package com.example.ourapplication_kohl_roux_m.ui.car;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,10 +14,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.ourapplication_kohl_roux_m.viewModel.trajet.TrajetSingleViewModel;
 import com.google.firebase.auth.FirebaseAuth;
 
 import androidx.annotation.NonNull;
 import androidx.core.view.GravityCompat;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.ourapplication_kohl_roux_m.R;
@@ -60,7 +63,7 @@ public class CarDescription extends BaseActivity {
 
         CarSingleViewModel.Factory factory = new CarSingleViewModel.Factory(carId,
                 getApplication());
-        viewModel = ViewModelProviders.of(this, factory).get(CarSingleViewModel.class);
+        viewModel = new ViewModelProvider(this, factory).get(CarSingleViewModel.class);
         viewModel.getMyCarViewMod().observe(this, carL -> {
             if (carL != null) {
                 carEntity = carL;
@@ -102,6 +105,26 @@ public class CarDescription extends BaseActivity {
         }).execute(newCar);
 
  */
+
+        viewModel.modifyOneCar(newCar, new OnAsyncEventListener() {
+            @SuppressLint("LongLogTag")
+            @Override
+            public void onSuccess() {
+                Log.d(TAG, getString(R.string.Input_succ));
+                Intent intent = new Intent(CarDescription.this, ListMyActiveCars.class);
+                startActivity(intent);
+                toastSuccess.show();
+            }
+
+            @SuppressLint("LongLogTag")
+            @Override
+            public void onFailure(Exception e) {
+                Log.d(TAG, getString(R.string.Input_fail), e);
+                toastFailed.show();
+            }
+
+        });
+
 
     }
 

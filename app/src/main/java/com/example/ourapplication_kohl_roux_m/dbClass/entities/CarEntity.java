@@ -41,7 +41,6 @@ public class CarEntity implements Comparable {
         this.picture = picture;
     }
 
-    @Exclude
     public String getUid() {
         return uid;
     }

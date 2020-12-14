@@ -26,14 +26,14 @@ public class CarActivities extends BaseActivity {
 
     private ImageButton btnModify;
     private ImageButton btnRoadTrip;
-    private long carId;
+    private String carId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getLayoutInflater().inflate(R.layout.activity_car_activity, frameLayout);
 
-        carId = (long) getIntent().getExtras().get("CarId");
+        carId = (String) getIntent().getExtras().get("CarId");
 
         setTitle(getString(R.string.car_list));
         navigationView.setCheckedItem(position);
