@@ -45,7 +45,7 @@ public class RecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerAdapter.Vie
         if (item.getClass().equals(String.class))
             holder.mTextView.setText((String) item);
         if (item.getClass().equals(CarEntity.class)) {
-            holder.mTextView.setText(((CarEntity) item).getNickName());
+            holder.mTextView.setText(((CarEntity) item).getNickname());
         }
         if (item.getClass().equals(TrajetEntity.class))
             holder.mTextView.setText(((TrajetEntity) item).getNamOfTrip() + " "
@@ -95,7 +95,7 @@ public class RecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerAdapter.Vie
                         CarEntity newCarEntity = (CarEntity) data.get(newItemPosition);
                         CarEntity oldCarEntity = (CarEntity) mData.get(newItemPosition);
                         return Objects.equals(newCarEntity.getUid(), (oldCarEntity.getUid()))
-                                && Objects.equals(newCarEntity.getNickName(), oldCarEntity.getNickName());
+                                && Objects.equals(newCarEntity.getNickname(), oldCarEntity.getNickname());
                     }
                     if (mData instanceof TrajetEntity) {
                         TrajetEntity newTrajet = (TrajetEntity) data.get(newItemPosition);

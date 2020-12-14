@@ -9,7 +9,6 @@ import java.util.Map;
 
 public class CarEntity implements Comparable {
 
-    @Exclude
     public String uid;
 
     public String nickname;
@@ -51,11 +50,11 @@ public class CarEntity implements Comparable {
         this.uid = uid;
     }
 
-   public String getNickName() {
+   public String getNickname() {
         return nickname;
     }
 
-    public void setNickName(String nickName) {
+    public void setNickname(String nickName) {
         this.nickname = nickName;
     }
 

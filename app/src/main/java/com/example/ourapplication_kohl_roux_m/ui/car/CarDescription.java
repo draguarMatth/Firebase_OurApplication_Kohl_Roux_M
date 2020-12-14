@@ -118,7 +118,7 @@ public class CarDescription extends BaseActivity {
 
     private void setupUi() {
 
-        txtVwNickname.setText(carEntity.getNickName());
+        txtVwNickname.setText(carEntity.getNickname());
 
         if (carEntity.isCarForTrip())
             chkBoxActivity.setChecked(true);
@@ -126,7 +126,7 @@ public class CarDescription extends BaseActivity {
         chkBoxActivity.setActivated(true);
 
         fab.setOnClickListener(view -> {
-            carEntity.setNickName(txtVwNickname.getText().toString());
+            carEntity.setNickname(txtVwNickname.getText().toString());
             if(chkBoxActivity.isChecked())
                 carEntity.setCarForTrip(true);
             else
