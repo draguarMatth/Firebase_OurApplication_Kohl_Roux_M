@@ -20,7 +20,7 @@ import java.util.List;
 public class AllMyCarsListViewModel extends AndroidViewModel {
 
         private final CarRepository repository;
-        private final MediatorLiveData<List<CarRoadTrips>> observableCars;
+        private final MediatorLiveData<List<CarEntity>> observableCars;
 
         public AllMyCarsListViewModel(@NonNull Application application,
                                   CarRepository carRepository) {
@@ -32,7 +32,7 @@ public class AllMyCarsListViewModel extends AndroidViewModel {
             // set by default null, until we get data from the database.
             observableCars.setValue(null);
 
-            LiveData<List<CarRoadTrips>> carList =
+            LiveData<List<CarEntity>> carList =
                     repository.getAllCar();
 
 
@@ -43,7 +43,7 @@ public class AllMyCarsListViewModel extends AndroidViewModel {
         /**
          * Expose the LiveData MyCars query so the UI can observe it.
          */
-        public LiveData<List<CarRoadTrips>> getAllMyCarsViewMod() {
+        public LiveData<List<CarEntity>> getAllMyCarsViewMod() {
             return observableCars;
         }
 

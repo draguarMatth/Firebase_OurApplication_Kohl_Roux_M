@@ -16,7 +16,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AllCarLiveData extends LiveData<List<CarRoadTrips>> {
+public class AllCarLiveData extends LiveData<List<CarEntity>> {
 
     private static final String TAG = "AllCarLiveData";
 
@@ -50,16 +50,20 @@ public class AllCarLiveData extends LiveData<List<CarRoadTrips>> {
         }
     }
 
-    private List<CarRoadTrips> carWithRoadTripsList(DataSnapshot snapshot) {
-        List<CarRoadTrips> carsList = new ArrayList<>();
+    private List<CarEntity> carWithRoadTripsList(DataSnapshot snapshot) {
+        List<CarEntity> carsList = new ArrayList<>();
         for (DataSnapshot childSnapshot : snapshot.getChildren()) {
             if (!childSnapshot.getKey().isEmpty()) {
-                CarRoadTrips carRoadTrips = new CarRoadTrips();
-                carRoadTrips.carEntity = childSnapshot.getValue(CarEntity.class);
-                carRoadTrips.carEntity.setUid(childSnapshot.getKey());
-                carRoadTrips.trajets = tripDependingActivityCar(childSnapshot.child("trajets"),
-                        childSnapshot.getKey());
-                carsList.add(carRoadTrips);
+                CarEntity carEntity = new CarEntity();
+                carEntity = childSnapshot.getValue(CarEntity.class);
+                carEntity.setUid(childSnapshot.getKey());
+                carEntity.setNickname(childSnapshot.child("nickname").getValue(String.class));
+                carEntity.setCarTradeMark(childSnapshot.child("carTradeMark").getValue(String.class));
+                carEntity.setModel(childSnapshot.child("model").getValue(String.class));
+                carEntity.setCarForTrip(childSnapshot.child("carForTrip").getValue(boolean.class));
+                carEntity.setPicture(childSnapshot.child("picture").getValue(int.class));
+
+                carsList.add(carEntity);
             }
         }
         return carsList;

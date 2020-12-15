@@ -135,13 +135,13 @@ public class CarEntity implements Comparable {
     @Exclude
     public Map<String, Object> toMap() {
         HashMap<String, Object> result = new HashMap<>();
-        result.put("Nickname", nickname);
-        result.put("Marque", carTradeMark);
-        result.put("Model", model);
+        result.put("nickname", nickname);
+        result.put("carTradeMark", carTradeMark);
+        result.put("model", model);
         result.put("consoFuel", consoFuel);
         result.put("batteryCapacity", batteryPower);
         result.put("wheelSize", wheelSize);
-        result.put("activity", carForTrip);
+        result.put("carForTrip", carForTrip);
         result.put("picture", picture);
 
         return result;

@@ -17,7 +17,6 @@ import com.example.ourapplication_kohl_roux_m.util.OnAsyncEventListener;
 public class TrajetSingleViewModel extends AndroidViewModel {
 
     private final TrajetRepository repository;
-//    private final long carId;
     private final String trajetId;
     private final MediatorLiveData<TrajetEntity> observableTrajet;
 
@@ -26,7 +25,6 @@ public class TrajetSingleViewModel extends AndroidViewModel {
         super(application);
 
         repository = trajetRepository;
-//        this.carId = carId;
         this.trajetId = trajetId;
 
         observableTrajet = new MediatorLiveData<>();
@@ -59,12 +57,10 @@ public class TrajetSingleViewModel extends AndroidViewModel {
         private final Application application;
 
         private final TrajetRepository trajetRepository;
-//        private long carId;
         private String trajetId;
 
         public Factory(@NonNull Application application, final String trajetId) {
             this.application = application;
-//            this.carId = carId;
             this.trajetId = trajetId;
             trajetRepository = ((BaseApp) application).getTrajetRepository();
         }

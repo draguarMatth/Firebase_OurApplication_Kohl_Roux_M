@@ -10,9 +10,8 @@ import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
 
-import com.google.firebase.auth.FirebaseAuth;
-
 import com.example.ourapplication_kohl_roux_m.ui.Settings.SettingsActivity;
+import com.example.ourapplication_kohl_roux_m.ui.car.ListAllMyCars;
 import com.example.ourapplication_kohl_roux_m.ui.car.ListMyActiveCars;
 import com.example.ourapplication_kohl_roux_m.ui.trajet.ListTrajet_BazActivity;
 import com.google.android.material.navigation.NavigationView;
@@ -112,8 +111,10 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
 
         navigationView.setCheckedItem(id);
 
-        if (id == R.id.nav_vehicule) {
+        if (id == R.id.nav_active_vehicule) {
             intent = new Intent(this, ListMyActiveCars.class);
+        } else if (id == R.id.nav_all_vehicules) {
+            intent = new Intent(this, ListAllMyCars.class);
         } else if (id == R.id.nav_list_trajet) {
             intent = new Intent(this, ListTrajet_BazActivity.class);
         }
@@ -133,7 +134,5 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
         android.content.res.Configuration config = new android.content.res.Configuration();
         config.setLocale(myLocale);
         getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
-        //TextView welcome = findViewById(R.id.main_txt_welcome);
-        //welcome.setText(R.string.main_welcome);
     }
 }

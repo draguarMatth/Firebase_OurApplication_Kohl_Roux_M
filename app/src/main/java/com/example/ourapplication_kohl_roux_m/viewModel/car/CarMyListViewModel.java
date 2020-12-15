@@ -12,7 +12,6 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.ourapplication_kohl_roux_m.BaseApp;
 import com.example.ourapplication_kohl_roux_m.dbClass.Repository.CarRepository;
 import com.example.ourapplication_kohl_roux_m.dbClass.entities.CarEntity;
-import com.example.ourapplication_kohl_roux_m.dbClass.pojo.CarRoadTrips;
 import com.example.ourapplication_kohl_roux_m.util.OnAsyncEventListener;
 
 import java.util.List;
@@ -32,10 +31,6 @@ public class CarMyListViewModel extends AndroidViewModel {
         // set by default null, until we get data from the database.
         observableCars.setValue(null);
 
-       /* LiveData<List<CarRoadTrips>> carList =
-                repository.getMyCars(true);
-
-        */
         LiveData<List<CarEntity>> carList =
                 repository.getMyCars(true);
 

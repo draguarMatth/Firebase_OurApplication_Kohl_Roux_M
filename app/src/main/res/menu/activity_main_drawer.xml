@@ -3,8 +3,11 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_vehicule"
+            android:id="@+id/nav_active_vehicule"
             android:title="@string/my_car" />
+        <item
+            android:id="@+id/nav_all_vehicules"
+            android:title="all my cars" />
         <item
             android:id="@+id/nav_none"
             android:title=""

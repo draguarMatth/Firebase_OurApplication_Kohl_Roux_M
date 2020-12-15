@@ -3,12 +3,10 @@ package com.example.ourapplication_kohl_roux_m.dbClass.Repository;
 import androidx.lifecycle.LiveData;
 
 import com.example.ourapplication_kohl_roux_m.dbClass.entities.CarEntity;
-import com.example.ourapplication_kohl_roux_m.dbClass.firebase.ActiveCarsAndTheseTripsLiveData;
+import com.example.ourapplication_kohl_roux_m.dbClass.firebase.ActiveCarsLiveData;
 import com.example.ourapplication_kohl_roux_m.dbClass.firebase.AllCarLiveData;
 import com.example.ourapplication_kohl_roux_m.dbClass.firebase.CarLiveData;
-import com.example.ourapplication_kohl_roux_m.dbClass.pojo.CarRoadTrips;
 import com.example.ourapplication_kohl_roux_m.util.OnAsyncEventListener;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -50,10 +48,10 @@ public class CarRepository {
         DatabaseReference reference = FirebaseDatabase.getInstance()
                 .getReference("cars");
 
-        return new ActiveCarsAndTheseTripsLiveData(reference, carActivity);
+        return new ActiveCarsLiveData(reference, carActivity);
     }
 
-    public LiveData<List<CarRoadTrips>> getAllCar() {
+    public LiveData<List<CarEntity>> getAllCar() {
         DatabaseReference reference = FirebaseDatabase.getInstance()
                 .getReference("cars");
         return new AllCarLiveData(reference);
