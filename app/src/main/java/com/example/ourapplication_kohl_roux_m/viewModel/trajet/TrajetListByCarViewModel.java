@@ -24,7 +24,7 @@ public class TrajetListByCarViewModel extends AndroidViewModel {
     private final MediatorLiveData<List<TrajetEntity>> observableTrajets;
 //    private final MediatorLiveData<List<CarEntity>> observableCars;
 
-    public TrajetListByCarViewModel(@NonNull Application application,
+    public TrajetListByCarViewModel(@NonNull Application application, final String carId,
                                     TrajetRepository trajetRepository) {
         super(application);
 
@@ -35,7 +35,7 @@ public class TrajetListByCarViewModel extends AndroidViewModel {
         observableTrajets.setValue(null);
 
         LiveData<List<TrajetEntity>> trajetList =
-                repository.getTrajetByCarId();
+                repository.getTrajetByCarId(carId);
 
         observableTrajets.addSource(trajetList, observableTrajets::setValue);
     }
@@ -47,6 +47,10 @@ public class TrajetListByCarViewModel extends AndroidViewModel {
     public void deleteTrajetViewModel(final TrajetEntity trajetEntity,
                                       OnAsyncEventListener callback) {
         repository.delete(trajetEntity,callback);
+    }
+
+    public void insetTrajet(TrajetEntity trajet, OnAsyncEventListener callback) {
+        repository.insert(trajet, callback);
     }
 
     public static class Factory extends ViewModelProvider.NewInstanceFactory {
@@ -67,7 +71,7 @@ public class TrajetListByCarViewModel extends AndroidViewModel {
         @Override
         public <T extends ViewModel> T create(Class<T> modelClass) {
 
-            return (T) new TrajetListByCarViewModel(application, trajetRepository);
+            return (T) new TrajetListByCarViewModel(application, carId, trajetRepository);
         }
     }
 }

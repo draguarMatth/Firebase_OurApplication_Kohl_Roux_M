@@ -46,6 +46,8 @@ public class TrajetEntity implements Comparable {
         return namOfTrip;
     }
 
+    public void setNameOfTrip(String nameOfTrip){this.namOfTrip = nameOfTrip;}
+
     public void setNamOfTrip(String namOfTrip) {
         this.namOfTrip = namOfTrip;
     }

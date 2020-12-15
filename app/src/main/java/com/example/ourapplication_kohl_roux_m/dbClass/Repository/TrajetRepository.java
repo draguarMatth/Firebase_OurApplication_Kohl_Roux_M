@@ -61,18 +61,18 @@ public class TrajetRepository {
         return new OneTripByCarLiveData(reference, carId, dateOfTrip);
     }
 
-    public LiveData <List<TrajetEntity>> getTrajetByCarId() {
+    public LiveData <List<TrajetEntity>> getTrajetByCarId(final String uid) {
 
         DatabaseReference reference = FirebaseDatabase.getInstance()
                 .getReference("trajets");
-        return new TripsListForOneCarLiveData(reference);
+        return new TripsListForOneCarLiveData(reference, uid);
     }
 
-    public void insert(final TrajetEntity trajetEntity, OnAsyncEventListener callback) {
-
+    public void insert(final TrajetEntity trajetEntity,final OnAsyncEventListener callback) {
+        String id = FirebaseDatabase.getInstance().getReference("trajets").push().getKey();
         FirebaseDatabase.getInstance()
                 .getReference("trajets")
-                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .child(id)
                 .setValue(trajetEntity, (databaseError, databaseReference) -> {
                     if (databaseError != null) {
                         callback.onFailure(databaseError.toException());

@@ -20,6 +20,7 @@ public class TripsListForOneCarLiveData extends LiveData<List<TrajetEntity>> {
 
     private final DatabaseReference reference;
     private final String carId;
+
     private final TripsListForOneCarLiveData.MyValueEventListener listener = new TripsListForOneCarLiveData.MyValueEventListener();
 
     public TripsListForOneCarLiveData(DatabaseReference ref) {
@@ -55,10 +56,13 @@ public class TripsListForOneCarLiveData extends LiveData<List<TrajetEntity>> {
 
         for (DataSnapshot childSnapshot : snapshot.getChildren()) {
             if (!childSnapshot.getKey().isEmpty()) {
-                TrajetEntity trajet = new TrajetEntity();
-                trajet = childSnapshot.getValue(TrajetEntity.class);
+                TrajetEntity trajetEntity = childSnapshot.getValue(TrajetEntity.class);
+                trajetEntity = childSnapshot.getValue(TrajetEntity.class);
+                trajetEntity.setUid(childSnapshot.getKey());
+                trajetEntity.setNamOfTrip(childSnapshot.child("namOfTrip").getValue(String.class));
+                trajetEntity.setDate(childSnapshot.child("date").getValue(String.class));
 
-                trajets.add(trajet);
+                trajets.add(trajetEntity);
             }
         }
         return trajets;
