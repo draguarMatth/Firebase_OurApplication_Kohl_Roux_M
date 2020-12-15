@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class TrajetEntity implements Comparable {
 
-    private String  uid;
+    private String uid;
     private String namOfTrip;
     private String date;
     private double kmTot;
