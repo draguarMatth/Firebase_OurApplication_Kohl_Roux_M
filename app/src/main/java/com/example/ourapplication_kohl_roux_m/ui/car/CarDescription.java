@@ -79,24 +79,6 @@ public class CarDescription extends BaseActivity {
 
         Toast toastSuccess = Toast.makeText(this, getString(R.string.car_data_mod), Toast.LENGTH_LONG);
         Toast toastFailed = Toast.makeText(this, getString(R.string.car_failed_mod), Toast.LENGTH_LONG);
-/*
-        new UpdateCar(getApplication(), new OnAsyncEventListener() {
-            @Override
-            public void onSuccess() {
-                Log.d(TAG, getString(R.string.modify_car_s));
-                Intent intent = new Intent(CarDescription.this, ListMyActiveCars.class);
-                startActivity(intent);
-                toastSuccess.show();
-            }
-
-            @Override
-            public void onFailure(Exception e) {
-                Log.d(TAG, getString(R.string.modify_car_f), e);
-                toastFailed.show();
-            }
-        }).execute(newCar);
-
- */
 
         viewModel.modifyOneCar(newCar, new OnAsyncEventListener() {
             @SuppressLint("LongLogTag")

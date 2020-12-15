@@ -6,11 +6,8 @@ import com.example.ourapplication_kohl_roux_m.dbClass.entities.TrajetEntity;
 import com.example.ourapplication_kohl_roux_m.dbClass.firebase.AllTripsLiveData;
 import com.example.ourapplication_kohl_roux_m.dbClass.firebase.OneTripByCarLiveData;
 import com.example.ourapplication_kohl_roux_m.dbClass.firebase.OneTripByIdLiveData;
-import com.example.ourapplication_kohl_roux_m.dbClass.firebase.TripByNameLiveData;
 import com.example.ourapplication_kohl_roux_m.dbClass.firebase.TripsListForOneCarLiveData;
 import com.example.ourapplication_kohl_roux_m.util.OnAsyncEventListener;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 

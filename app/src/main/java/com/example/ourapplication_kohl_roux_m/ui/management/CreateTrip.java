@@ -31,7 +31,6 @@ public class CreateTrip extends BaseActivity {
     private Intent previousIntent;
     public Bundle bundle;
     private String carId;
-    private String trajetDate;
     private TrajetEntity newTrajet;
     TrajetListViewModel viewModel;
     TrajetSingleViewModelByDateForOneCar viewmodelForOneTrip;
@@ -88,27 +87,6 @@ public class CreateTrip extends BaseActivity {
        newTrajet = new TrajetEntity(carID, name, date, 0,
                 0, 0, 0, 0);
 
-/*
-
-        new CreateTrajet(getApplication(), new OnAsyncEventListener() {
-            @Override
-            public void onSuccess() {
-                trajetDate = newTrajet.getDate();
-                Intent intent = new Intent(CreateTrip.this, NewTrajetConsumptionInput.class);
-                intent.putExtra("TrajetDate", trajetDate);
-                intent.putExtra("CarId", carId);
-                startActivity(intent);
-
-                Log.d(TAG, getString(R.string.create_ride_succes));
-            }
-
-            @Override
-            public void onFailure(Exception e) {
-                Log.d(TAG, getString(R.string.create_ride_error), e);
-            }
-
-        }).execute(newTrajet);
-*/
         viewModel.insetTrajet(carId, newTrajet,new OnAsyncEventListener() {
             @Override
             public void onSuccess() {
@@ -128,7 +106,6 @@ public class CreateTrip extends BaseActivity {
         TrajetListViewModel.Factory factory = new TrajetListViewModel.Factory(getApplication());
 
         viewModel = new ViewModelProvider(this, factory).get(TrajetListViewModel.class);
-
     }
 
     private void setResponse(Boolean response) {

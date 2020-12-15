@@ -42,6 +42,7 @@ public class OneTripByIdLiveData extends LiveData<TrajetEntity> {
                 if (childSnapshot.getKey().equals(trajetId)) {
                     TrajetEntity entity = childSnapshot.getValue(TrajetEntity.class);
                     entity.setUid(trajetId);
+
                     setValue(entity);
                 }
             }

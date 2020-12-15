@@ -12,7 +12,6 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.ourapplication_kohl_roux_m.BaseApp;
 import com.example.ourapplication_kohl_roux_m.dbClass.Repository.TrajetRepository;
 import com.example.ourapplication_kohl_roux_m.dbClass.entities.TrajetEntity;
-import com.example.ourapplication_kohl_roux_m.util.OnAsyncEventListener;
 
 public class TrajetSingleViewModelById extends AndroidViewModel {
 

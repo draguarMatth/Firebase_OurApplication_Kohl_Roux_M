@@ -78,7 +78,7 @@ public class ListTrajet_BazActivity extends BaseActivity {
             @Override
             public void onItemClick(View v, int position) {
                 Log.d(TAG, "clicked position:" + position);
-                Log.d(TAG, "clicked on: " + trajets.get(position).getNamOfTrip());
+                Log.d(TAG, "clicked on: " + trajets.get(position).getName());
 
                 TrajetEntity trajet = trajets.get(position);
                 Intent intent = new Intent(ListTrajet_BazActivity.this, TrajetActivity.class);
@@ -94,7 +94,7 @@ public class ListTrajet_BazActivity extends BaseActivity {
             @Override
             public void onItemLongClick(View v, int position) {
                 Log.d(TAG, "longClicked position:" + position);
-                Log.d(TAG, "longClicked on: " + trajets.get(position).getNamOfTrip());
+                Log.d(TAG, "longClicked on: " + trajets.get(position).getName());
                 createDeleteDialog(position);
             }
         });
@@ -140,7 +140,7 @@ public class ListTrajet_BazActivity extends BaseActivity {
         alertDialog.setCancelable(true);
 
         final TextView deleteMessage = view.findViewById(R.id.tv_delete_item);
-        deleteMessage.setText("Attention, " + trajet.getNamOfTrip() + ", sera définitivement perdu !");
+        deleteMessage.setText("Attention, " + trajet.getName() + ", sera définitivement perdu !");
 
         alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Effacer", (dialog, which) -> {
             Toast toast = Toast.makeText(this, "Trajet effacé.", Toast.LENGTH_LONG);

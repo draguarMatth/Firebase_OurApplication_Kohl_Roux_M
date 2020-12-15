@@ -20,9 +20,7 @@ public class TrajetListByCarViewModel extends AndroidViewModel {
 
     private final TrajetRepository repository;
 
-    // MediatorLiveData can observe other LiveData objects and react on their emissions.
     private final MediatorLiveData<List<TrajetEntity>> observableTrajets;
-//    private final MediatorLiveData<List<CarEntity>> observableCars;
 
     public TrajetListByCarViewModel(@NonNull Application application, final String carId,
                                     TrajetRepository trajetRepository) {

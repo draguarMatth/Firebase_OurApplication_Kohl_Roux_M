@@ -12,7 +12,6 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.ourapplication_kohl_roux_m.BaseApp;
 import com.example.ourapplication_kohl_roux_m.dbClass.Repository.CarRepository;
 import com.example.ourapplication_kohl_roux_m.dbClass.entities.CarEntity;
-import com.example.ourapplication_kohl_roux_m.dbClass.pojo.CarRoadTrips;
 import com.example.ourapplication_kohl_roux_m.util.OnAsyncEventListener;
 
 import java.util.List;

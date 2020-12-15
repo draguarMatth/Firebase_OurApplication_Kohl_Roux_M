@@ -154,7 +154,6 @@ public class ListAllMyCars extends BaseActivity {
         super.onPostResume();
     }
 
-
     public boolean onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.settings, menu) ;
         return true;

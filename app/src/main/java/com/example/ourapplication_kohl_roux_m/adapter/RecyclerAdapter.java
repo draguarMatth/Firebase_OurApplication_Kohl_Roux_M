@@ -48,7 +48,7 @@ public class RecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerAdapter.Vie
             holder.mTextView.setText(((CarEntity) item).getNickname());
         }
         if (item.getClass().equals(TrajetEntity.class))
-            holder.mTextView.setText(((TrajetEntity) item).getNamOfTrip() + " "
+            holder.mTextView.setText(((TrajetEntity) item).getName() + " "
                     + ((TrajetEntity) item).getDate() + " " + ((TrajetEntity) item).getKmTot());
     }
 
@@ -101,7 +101,7 @@ public class RecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerAdapter.Vie
                         TrajetEntity newTrajet = (TrajetEntity) data.get(newItemPosition);
                         TrajetEntity oldTrajet = (TrajetEntity) mData.get(newItemPosition);
                         return Objects.equals(newTrajet.getCarRef(), oldTrajet.getCarRef())
-                                && Objects.equals(newTrajet.getNamOfTrip(), oldTrajet.getNamOfTrip())
+                                && Objects.equals(newTrajet.getName(), oldTrajet.getName())
                                 && Objects.equals(newTrajet.getDate(), oldTrajet.getDate());
                     }
                     return false;

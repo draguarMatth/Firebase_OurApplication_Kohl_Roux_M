@@ -16,8 +16,6 @@ public class CarRepository {
 
     private static CarRepository instance;
 
-//    private ArrayList<TrajetEntity> trajets;
-
     private CarRepository() {
     }
 
@@ -84,9 +82,7 @@ public class CarRepository {
                         callback.onSuccess();
                     }
                 });
-
     }
-
 
     public void delete(final CarEntity carEntity, OnAsyncEventListener callback) {
 
@@ -100,6 +96,5 @@ public class CarRepository {
                         callback.onSuccess();
                     }
                 });
-
     }
 }

@@ -197,20 +197,6 @@ public class NewTrajetConsumptionInput extends BaseActivity {
                 );
             }
         });
- /*
-            TrajetSingleViewModelById.Factory factory = new TrajetSingleViewModelById.Factory(
-                    getApplication(), trajetId);
-            viewModel = new ViewModelProvider(this, factory).get(TrajetSingleViewModelById.class);
-            viewModel.getSingleTripviewMod().observe(this, trajetL -> {
-                if (trajetL != null) {
-                    upDTrajet = trajetL;
-                    save.setOnClickListener(view -> {
-                    saveChanges();
-                            }
-                    );
-                }
-            });
-*/
     }
 
     @Override
@@ -330,6 +316,5 @@ public class NewTrajetConsumptionInput extends BaseActivity {
 
         return result;
     }
-
 
 }

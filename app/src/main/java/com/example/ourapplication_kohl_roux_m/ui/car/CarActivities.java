@@ -2,12 +2,10 @@ package com.example.ourapplication_kohl_roux_m.ui.car;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageButton;
 
 import com.example.ourapplication_kohl_roux_m.dbClass.entities.CarEntity;
-import com.google.firebase.auth.FirebaseAuth;
 
 import androidx.annotation.NonNull;
 import androidx.core.view.GravityCompat;
@@ -15,14 +13,10 @@ import androidx.core.view.GravityCompat;
 import com.example.ourapplication_kohl_roux_m.R;
 import com.example.ourapplication_kohl_roux_m.ui.BaseActivity;
 import com.example.ourapplication_kohl_roux_m.ui.trajet.ListTrajet_BazActivity;
-import com.example.ourapplication_kohl_roux_m.viewModel.car.CarSingleViewModel;
 
 public class CarActivities extends BaseActivity {
 
     private static final String TAG = "CarActivity";
-
-    private CarSingleViewModel viewModel;
-    private CarEntity carEntity;
 
     private ImageButton btnModify;
     private ImageButton btnRoadTrip;

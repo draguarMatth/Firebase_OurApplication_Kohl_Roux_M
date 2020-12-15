@@ -10,7 +10,7 @@ import java.util.Map;
 public class TrajetEntity implements Comparable {
 
     private String uid;
-    private String namOfTrip;
+    private String name;
     private String date;
     private double kmTot;
     private double totRise;
@@ -24,7 +24,7 @@ public class TrajetEntity implements Comparable {
     public TrajetEntity(@NonNull String carId, String name, String date, double kmTot,
                         double totRise, double totDeep, double gasolinTot, double electricityTot) {
         this.carRef = carId;
-        this.namOfTrip = name;
+        this.name = name;
         this.kmTot = kmTot;
         this.date = date;
         this.totRise = totRise;
@@ -42,14 +42,12 @@ public class TrajetEntity implements Comparable {
         this.uid = uid;
     }
 
-    public String getNamOfTrip() {
-        return namOfTrip;
+    public String getName() {
+        return name;
     }
 
-    public void setNameOfTrip(String nameOfTrip){this.namOfTrip = nameOfTrip;}
-
-    public void setNamOfTrip(String namOfTrip) {
-        this.namOfTrip = namOfTrip;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getDate() {
@@ -120,7 +118,7 @@ public class TrajetEntity implements Comparable {
 
     @Override
     public String toString() {
-        return uid + " / " + carRef + " / " + namOfTrip + " / " + date;
+        return uid + " / " + carRef + " / " + name + " / " + date;
     }
 
     @Override
@@ -131,7 +129,7 @@ public class TrajetEntity implements Comparable {
     @Exclude
     public Map<String, Object> toMap() {
         HashMap<String, Object> result = new HashMap<>();
-        result.put("name", namOfTrip);
+        result.put("name", name);
         result.put("date", date);
         result.put("kmTot", kmTot);
         result.put("totRise", totRise);

@@ -8,7 +8,6 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.ourapplication_kohl_roux_m.dbClass.entities.TrajetEntity;
 import com.example.ourapplication_kohl_roux_m.viewModel.trajet.TrajetSingleViewModelById;
-import com.google.firebase.auth.FirebaseAuth;
 
 import com.example.ourapplication_kohl_roux_m.R;
 import com.example.ourapplication_kohl_roux_m.ui.BaseActivity;
@@ -56,9 +55,29 @@ public class TrajetActivity extends BaseActivity {
         viewModel.getSingleTripviewMod().observe(this, trajetVM -> {
             if (trajetVM != null) {
                 trajet = trajetVM;
-  //              repository.updateContent(trajet, callback);
+                setupUi();
+
             }
         });
+
+    }
+
+    private void setupUi() {
+
+
+        String name = trajet.getName();
+        double dist = trajet.getKmTot();
+        double deep = trajet.getTotDeep();
+        double rise = trajet.getTotRise();
+        double consoE = trajet.getElectricityTot();
+        double consoF = trajet.getGasolinTot();
+
+        nameTrajet.setText(name);
+        distance.setText(String.valueOf(dist));
+        down.setText(String.valueOf(deep));
+        up.setText(String.valueOf(rise));
+        consoElect.setText(String.valueOf(consoE));
+        consoFuel.setText(String.valueOf(consoF));
 
     }
 }

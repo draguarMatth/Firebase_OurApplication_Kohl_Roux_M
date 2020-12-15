@@ -53,7 +53,7 @@ public class AllCarLiveData extends LiveData<List<CarEntity>> {
         List<CarEntity> carsList = new ArrayList<>();
         for (DataSnapshot childSnapshot : snapshot.getChildren()) {
             if (!childSnapshot.getKey().isEmpty()) {
-                CarEntity carEntity = new CarEntity();
+                CarEntity carEntity;
                 carEntity = childSnapshot.getValue(CarEntity.class);
                 carEntity.setUid(childSnapshot.getKey());
                 carEntity.setNickname(childSnapshot.child("nickname").getValue(String.class));
@@ -67,21 +67,5 @@ public class AllCarLiveData extends LiveData<List<CarEntity>> {
         }
         return carsList;
     }
-
-    private List<TrajetEntity> tripDependingActivityCar(DataSnapshot snapshot, String carRef) {
-        List<TrajetEntity> trajets = new ArrayList<>();
-        for (DataSnapshot childSnapshot : snapshot.getChildren()) {
-            if (!childSnapshot.getKey().isEmpty()) {
-                TrajetEntity entity = childSnapshot.getValue(TrajetEntity.class);
-                entity.setUid(childSnapshot.getKey());
-                entity.setCarRef(carRef);
-                trajets.add(entity);
-            }
-        }
-        return trajets;
-    }
-
-
-
 
 }

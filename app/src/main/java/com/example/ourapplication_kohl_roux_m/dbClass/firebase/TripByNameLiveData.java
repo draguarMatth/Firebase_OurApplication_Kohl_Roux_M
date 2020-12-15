@@ -58,7 +58,7 @@ public class TripByNameLiveData extends LiveData<List<TrajetEntity>> {
         for (DataSnapshot childSnapshot : snapshot.getChildren()) {
             TrajetEntity trajet = childSnapshot.getValue(TrajetEntity.class);
             trajet.setUid(childSnapshot.getKey());
-            trajet.setNamOfTrip(tripName);
+            trajet.setName(tripName);
             trajets.add(trajet);
         }
 
