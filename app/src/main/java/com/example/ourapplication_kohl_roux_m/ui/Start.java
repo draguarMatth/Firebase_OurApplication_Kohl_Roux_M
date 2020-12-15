@@ -14,7 +14,6 @@ import com.example.ourapplication_kohl_roux_m.R;
 import com.example.ourapplication_kohl_roux_m.ui.car.ListMyActiveCars;
 
 import java.io.File;
-import java.util.ArrayList;
 
 public class Start extends AppCompatActivity {
 

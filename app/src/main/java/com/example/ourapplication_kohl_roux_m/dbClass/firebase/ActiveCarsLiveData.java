@@ -17,7 +17,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ActiveCarsLiveData extends LiveData<List<CarEntity>> {
-//    public class ActiveCarsAndTheseTripsLiveData extends LiveData<List<CarRoadTrips>> {
 
     private static final String TAG = "ActiveCarsAndTheseTripsLiveData";
 
@@ -28,7 +27,6 @@ public class ActiveCarsLiveData extends LiveData<List<CarEntity>> {
     public ActiveCarsLiveData(DatabaseReference ref, Boolean activity) {
         reference = ref;
         carActivity = activity;
-     //   carId = ref.getParent().getParent().getKey();
     }
 
     @SuppressLint("LongLogTag")
@@ -80,17 +78,6 @@ public class ActiveCarsLiveData extends LiveData<List<CarEntity>> {
         }
 
         return carsList;
-    }
-
-    private List<TrajetEntity> tripDependingActivityCar(DataSnapshot snapshot, String carRef) {
-        List<TrajetEntity> trajets = new ArrayList<>();
-        for (DataSnapshot childSnapshot : snapshot.getChildren()) {
-            TrajetEntity entity = childSnapshot.getValue(TrajetEntity.class);
-            entity.setUid(childSnapshot.getKey());
-            entity.setCarRef(carRef);
-            trajets.add(entity);
-        }
-        return trajets;
     }
 
 }

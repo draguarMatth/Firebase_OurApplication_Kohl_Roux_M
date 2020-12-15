@@ -7,7 +7,6 @@ import androidx.lifecycle.LiveData;
 
 import com.example.ourapplication_kohl_roux_m.dbClass.entities.CarEntity;
 import com.example.ourapplication_kohl_roux_m.dbClass.entities.TrajetEntity;
-import com.example.ourapplication_kohl_roux_m.dbClass.pojo.CarRoadTrips;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;

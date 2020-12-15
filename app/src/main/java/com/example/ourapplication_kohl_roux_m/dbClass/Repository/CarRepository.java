@@ -40,11 +40,7 @@ public class CarRepository {
         return new CarLiveData(reference);
     }
 
- //   public LiveData<List<CarRoadTrips>> getMyCars(final boolean carActivity) {
     public LiveData<List<CarEntity>> getMyCars(final boolean carActivity) {
- //       LiveData<List<CarEntity>> carsLiveD = ((BaseApp) application).getDatabase().carDao().getByActivity();
- //       List<CarEntity> cars = carsLiveD.getValue();
-
         DatabaseReference reference = FirebaseDatabase.getInstance()
                 .getReference("cars");
 

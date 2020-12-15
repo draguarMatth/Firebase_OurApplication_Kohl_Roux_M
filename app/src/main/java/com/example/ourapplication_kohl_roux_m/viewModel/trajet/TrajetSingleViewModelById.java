@@ -14,43 +14,34 @@ import com.example.ourapplication_kohl_roux_m.dbClass.Repository.TrajetRepositor
 import com.example.ourapplication_kohl_roux_m.dbClass.entities.TrajetEntity;
 import com.example.ourapplication_kohl_roux_m.util.OnAsyncEventListener;
 
-public class TrajetSingleViewModel extends AndroidViewModel {
+public class TrajetSingleViewModelById extends AndroidViewModel {
 
     private final TrajetRepository repository;
     private final String trajetId;
+    private final String carId;
     private final MediatorLiveData<TrajetEntity> observableTrajet;
 
-    public TrajetSingleViewModel(@NonNull Application application,
-                                 TrajetRepository trajetRepository, String trajetId) {
+    public TrajetSingleViewModelById(@NonNull Application application,
+                                     TrajetRepository trajetRepository, String trajetId, String carId) {
         super(application);
 
         repository = trajetRepository;
         this.trajetId = trajetId;
-
+        this.carId = carId;
         observableTrajet = new MediatorLiveData<>();
 
         observableTrajet.setValue(null);
 
         LiveData<TrajetEntity> trajet =
-                repository.getTrajetById(trajetId);
+                repository.getTrajetById(trajetId, carId);
 
         observableTrajet.addSource(trajet, observableTrajet::setValue);
     }
 
-    /**
-     * Expose the LiveData ClientAccounts query so the UI can observe it.
-     */
     public LiveData<TrajetEntity> getSingleTripviewMod() {
         return observableTrajet;
     }
 
-    public void update(TrajetEntity trajet, OnAsyncEventListener callback) {
-        repository.delete(trajet, callback);
-    }
-
-    /**
-     * A creator is used to inject the account id into the ViewModel
-     */
     public static class Factory extends ViewModelProvider.NewInstanceFactory {
 
         @NonNull
@@ -58,16 +49,18 @@ public class TrajetSingleViewModel extends AndroidViewModel {
 
         private final TrajetRepository trajetRepository;
         private String trajetId;
+        private String carId;
 
-        public Factory(@NonNull Application application, final String trajetId) {
+        public Factory(@NonNull Application application, final String trajetId, final String carId) {
             this.application = application;
             this.trajetId = trajetId;
+            this.carId = carId;
             trajetRepository = ((BaseApp) application).getTrajetRepository();
         }
 
         @Override
         public <T extends ViewModel> T create(Class<T> modelClass) {
-            return (T) new TrajetSingleViewModel(application, trajetRepository, trajetId);
+            return (T) new TrajetSingleViewModelById(application, trajetRepository, trajetId, carId);
         }
     }
 

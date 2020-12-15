@@ -16,8 +16,8 @@ import com.example.ourapplication_kohl_roux_m.dbClass.entities.TrajetEntity;
 import com.example.ourapplication_kohl_roux_m.ui.BaseActivity;
 import com.example.ourapplication_kohl_roux_m.util.OnAsyncEventListener;
 import com.example.ourapplication_kohl_roux_m.viewModel.trajet.TrajetListViewModel;
+import com.example.ourapplication_kohl_roux_m.viewModel.trajet.TrajetSingleViewModelByDateForOneCar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.firebase.auth.FirebaseAuth;
 
 
 public class CreateTrip extends BaseActivity {
@@ -30,10 +30,11 @@ public class CreateTrip extends BaseActivity {
 
     private Intent previousIntent;
     public Bundle bundle;
-    private long carId;
+    private String carId;
     private String trajetDate;
     private TrajetEntity newTrajet;
     TrajetListViewModel viewModel;
+    TrajetSingleViewModelByDateForOneCar viewmodelForOneTrip;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +43,7 @@ public class CreateTrip extends BaseActivity {
 
         previousIntent = getIntent();
         bundle = previousIntent.getExtras();
-        carId = (long) bundle.get("CarId");
+        carId = (String) bundle.get("CarId");
 
         initializeForm();
         Toast toast = Toast.makeText(this, getString(R.string.battery_and_gas_input), Toast.LENGTH_LONG);
@@ -80,17 +81,14 @@ public class CreateTrip extends BaseActivity {
         ));
     }
 
-    private void saveChanges(String name, String date, long carID) {
+    private void saveChanges(String name, String date, String carID) {
 
         setupViewModels();
 
-
-
- /*       newTrajet = new TrajetEntity(carId, nameNewTrip, dateNewTrip, 0,
+       newTrajet = new TrajetEntity(carID, name, date, 0,
                 0, 0, 0, 0);
 
-
-
+/*
 
         new CreateTrajet(getApplication(), new OnAsyncEventListener() {
             @Override
@@ -111,9 +109,10 @@ public class CreateTrip extends BaseActivity {
 
         }).execute(newTrajet);
 */
-        viewModel.insetTrajet(newTrajet,new OnAsyncEventListener() {
+        viewModel.insetTrajet(carId, newTrajet,new OnAsyncEventListener() {
             @Override
             public void onSuccess() {
+                setResponse(true);
                 Log.d(TAG, "IsertTrip: success");
             }
 
@@ -134,9 +133,18 @@ public class CreateTrip extends BaseActivity {
 
     private void setResponse(Boolean response) {
         if (response) {
-            trajetDate = newTrajet.getDate();
+            TrajetSingleViewModelByDateForOneCar.Factory factory = new TrajetSingleViewModelByDateForOneCar.Factory(getApplication(), carId, dateNewTrip);
+            viewmodelForOneTrip = new ViewModelProvider(this, factory).get(TrajetSingleViewModelByDateForOneCar.class);
+             viewmodelForOneTrip.getSingleTripByDateForOneCarViewMod().observe(this, trajetL -> {
+                if (trajetL != null) {
+                    newTrajet = trajetL;
+                }
+            });
+
+            String trajetId = newTrajet.getUid();
             Intent intent = new Intent(CreateTrip.this, NewTrajetConsumptionInput.class);
-            intent.putExtra("TrajetDate", trajetDate);
+            intent.putExtra("TrajetDate", dateNewTrip);
+            intent.putExtra("TrajetId", trajetId);
             intent.putExtra("CarId", carId);
             startActivity(intent);
         } else {

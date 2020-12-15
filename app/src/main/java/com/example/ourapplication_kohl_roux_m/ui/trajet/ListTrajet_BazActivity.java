@@ -19,7 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ourapplication_kohl_roux_m.R;
 import com.example.ourapplication_kohl_roux_m.adapter.RecyclerAdapter;
-import com.example.ourapplication_kohl_roux_m.dbClass.entity.TrajetEntity;
+import com.example.ourapplication_kohl_roux_m.dbClass.entities.TrajetEntity;
 import com.example.ourapplication_kohl_roux_m.ui.BaseActivity;
 import com.example.ourapplication_kohl_roux_m.ui.management.CreateTrip;
 import com.example.ourapplication_kohl_roux_m.util.OnAsyncEventListener;
@@ -86,6 +86,7 @@ public class ListTrajet_BazActivity extends BaseActivity {
                         Intent.FLAG_ACTIVITY_NO_ANIMATION |
                                 Intent.FLAG_ACTIVITY_NO_HISTORY
                 );
+                intent.putExtra("CarId", carId);
                 intent.putExtra("TrajetId", trajets.get(position).getUid());
                 startActivity(intent);
             }
@@ -144,7 +145,7 @@ public class ListTrajet_BazActivity extends BaseActivity {
         alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Effacer", (dialog, which) -> {
             Toast toast = Toast.makeText(this, "Trajet effacé.", Toast.LENGTH_LONG);
 
-            viewModel.deleteTrajetViewModel(trajet, new OnAsyncEventListener() {
+            viewModel.deleteTrajetViewModel(trajet, carId, new OnAsyncEventListener() {
                         @Override
                         public void onSuccess() {
                             Log.d(TAG, "deleteTrajet: success");

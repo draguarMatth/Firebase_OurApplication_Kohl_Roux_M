@@ -54,16 +54,16 @@ public class TripsListForOneCarLiveData extends LiveData<List<TrajetEntity>> {
     private List<TrajetEntity> getTrips (DataSnapshot snapshot) {
         List<TrajetEntity> trajets = new ArrayList<>();
 
-        for (DataSnapshot childSnapshot : snapshot.getChildren()) {
-            if (!childSnapshot.getKey().equals(uid)) {
+//        DataSnapshot childFinded = childSnapshot.child("trajets");
+        for (DataSnapshot childSnapshot : snapshot.child("trajets").getChildren()) {
+
                 TrajetEntity trajetEntity = childSnapshot.getValue(TrajetEntity.class);
-                trajetEntity = childSnapshot.getValue(TrajetEntity.class);
                 trajetEntity.setUid(childSnapshot.getKey());
                 trajetEntity.setNamOfTrip(childSnapshot.child("namOfTrip").getValue(String.class));
                 trajetEntity.setDate(childSnapshot.child("date").getValue(String.class));
 
                 trajets.add(trajetEntity);
-            }
+
         }
         return trajets;
     }

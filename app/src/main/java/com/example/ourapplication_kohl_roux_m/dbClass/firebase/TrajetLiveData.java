@@ -41,6 +41,18 @@ public class TrajetLiveData extends LiveData<TrajetEntity> {
             TrajetEntity entity = dataSnapshot.getValue(TrajetEntity.class);
             entity.setUid(dataSnapshot.getKey());
             entity.setNamOfTrip(name);
+
+  /*          entity = dataSnapshot.child("trajets").
+            carEntity.setNickname(childSnapshot.child("nickname").getValue(String.class));
+
+            entity.setNamOfTrip(kmTot);
+            ", kmTot);
+                    result.put("date", date);
+            result.put("totRise", totRise);
+            result.put("totDeep", totDeep);
+            result.put("gasolinTot", gasolinTot);
+            result.put("electricityTot", electricityTot);
+*/
             setValue(entity);
         }
 

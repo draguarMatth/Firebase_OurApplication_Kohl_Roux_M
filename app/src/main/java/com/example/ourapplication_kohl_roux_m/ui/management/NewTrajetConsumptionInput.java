@@ -1,13 +1,11 @@
 package com.example.ourapplication_kohl_roux_m.ui.management;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.Application;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -15,28 +13,22 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.firebase.auth.FirebaseAuth;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.view.GravityCompat;
-import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ourapplication_kohl_roux_m.R;
 import com.example.ourapplication_kohl_roux_m.adapter.RecyclerAdapter;
-import com.example.ourapplication_kohl_roux_m.dbClass.Repository.TrajetRepository;
 import com.example.ourapplication_kohl_roux_m.dbClass.entities.TrajetEntity;
 import com.example.ourapplication_kohl_roux_m.ui.BaseActivity;
-import com.example.ourapplication_kohl_roux_m.ui.Settings.SettingsActivity;
 import com.example.ourapplication_kohl_roux_m.ui.trajet.ListTrajet_BazActivity;
 import com.example.ourapplication_kohl_roux_m.util.OnAsyncEventListener;
 import com.example.ourapplication_kohl_roux_m.util.RecyclerViewItemClickListener;
-import com.example.ourapplication_kohl_roux_m.viewModel.trajet.TrajetSingleViewModel;
+import com.example.ourapplication_kohl_roux_m.viewModel.trajet.TrajetSingleViewModelByDateForOneCar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -58,11 +50,11 @@ public class NewTrajetConsumptionInput extends BaseActivity {
 
     private Application application;
 
-    private TrajetSingleViewModel viewModel;
+    private TrajetSingleViewModelByDateForOneCar viewmodelForOneTrip;
     private TrajetEntity upDTrajet;
     private String trajetDate;
     private String trajetId;
-    private long carId;
+    private String carId;
     private RecyclerAdapter<String> electAdapter;
     private List<String> electInputs;
     private RecyclerAdapter<String> fuelAdapter;
@@ -81,7 +73,7 @@ public class NewTrajetConsumptionInput extends BaseActivity {
         previousIntent = getIntent();
         bundle = previousIntent.getExtras();
         trajetDate = (String) bundle.get("TrajetDate");
-        carId = (long) bundle.get("CarId");
+        carId = (String) bundle.get("CarId");
         trajetId = (String) bundle.get("TrajetId");
 
         setTitle(getString(R.string.consommation));
@@ -194,9 +186,21 @@ public class NewTrajetConsumptionInput extends BaseActivity {
         });
 
 
-            TrajetSingleViewModel.Factory factory = new TrajetSingleViewModel.Factory(
+        TrajetSingleViewModelByDateForOneCar.Factory factory = new TrajetSingleViewModelByDateForOneCar.Factory(getApplication(), carId, trajetDate);
+        viewmodelForOneTrip = new ViewModelProvider(this, factory).get(TrajetSingleViewModelByDateForOneCar.class);
+        viewmodelForOneTrip.getSingleTripByDateForOneCarViewMod().observe(this, trajetL -> {
+            if (trajetL != null) {
+                upDTrajet = trajetL;
+                save.setOnClickListener(view -> {
+                            saveChanges();
+                        }
+                );
+            }
+        });
+ /*
+            TrajetSingleViewModelById.Factory factory = new TrajetSingleViewModelById.Factory(
                     getApplication(), trajetId);
-            viewModel = new ViewModelProvider(this, factory).get(TrajetSingleViewModel.class);
+            viewModel = new ViewModelProvider(this, factory).get(TrajetSingleViewModelById.class);
             viewModel.getSingleTripviewMod().observe(this, trajetL -> {
                 if (trajetL != null) {
                     upDTrajet = trajetL;
@@ -206,7 +210,7 @@ public class NewTrajetConsumptionInput extends BaseActivity {
                     );
                 }
             });
-
+*/
     }
 
     @Override
@@ -289,7 +293,7 @@ public class NewTrajetConsumptionInput extends BaseActivity {
         upDTrajet.setTotDeep (5);
         upDTrajet.setTotRise (5);
 
-        viewModel.update(upDTrajet, new OnAsyncEventListener() {
+        viewmodelForOneTrip.update(upDTrajet, carId, new OnAsyncEventListener() {
             @SuppressLint("LongLogTag")
             @Override
             public void onSuccess() {

@@ -14,7 +14,7 @@ import com.example.ourapplication_kohl_roux_m.dbClass.Repository.TrajetRepositor
 import com.example.ourapplication_kohl_roux_m.dbClass.entities.TrajetEntity;
 
 import java.util.List;
-
+/*
 public class TrajetListByNameViewModel extends AndroidViewModel {
 
     private final Application application;
@@ -68,3 +68,4 @@ public class TrajetListByNameViewModel extends AndroidViewModel {
         }
     }
 }
+*/

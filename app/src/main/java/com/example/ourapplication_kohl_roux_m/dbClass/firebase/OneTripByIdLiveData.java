@@ -16,13 +16,11 @@ public class OneTripByIdLiveData extends LiveData<TrajetEntity> {
     private static final String TAG = "OneTripByIdLiveData";
 
     private final DatabaseReference reference;
-    private final String carRef;
     private final String trajetId;
-    private final OneTripByIdLiveData.MyValueEventListener listener = new OneTripByIdLiveData.MyValueEventListener();
+    private final MyValueEventListener listener = new MyValueEventListener();
 
     public OneTripByIdLiveData(DatabaseReference ref, String trajetId) {
         this.reference = ref;
-        this.carRef = ref.getParent().getParent().getKey();
         this.trajetId = trajetId;
     }
 
@@ -40,9 +38,13 @@ public class OneTripByIdLiveData extends LiveData<TrajetEntity> {
     private class MyValueEventListener implements ValueEventListener {
         @Override
         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-            TrajetEntity entity = dataSnapshot.getValue(TrajetEntity.class);
-            entity.setUid(trajetId);
-            setValue(entity);
+            for (DataSnapshot childSnapshot : dataSnapshot.child("trajets").getChildren()) {
+                if (childSnapshot.getKey().equals(trajetId)) {
+                    TrajetEntity entity = childSnapshot.getValue(TrajetEntity.class);
+                    entity.setUid(trajetId);
+                    setValue(entity);
+                }
+            }
         }
 
         @Override

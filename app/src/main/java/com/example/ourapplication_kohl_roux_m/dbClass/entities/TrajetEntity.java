@@ -21,7 +21,7 @@ public class TrajetEntity implements Comparable {
 
     public TrajetEntity (){}
 
-    public TrajetEntity(@NonNull String carId, String name, @NonNull String date, double kmTot,
+    public TrajetEntity(@NonNull String carId, String name, String date, double kmTot,
                         double totRise, double totDeep, double gasolinTot, double electricityTot) {
         this.carRef = carId;
         this.namOfTrip = name;
@@ -33,7 +33,7 @@ public class TrajetEntity implements Comparable {
         this.electricityTot = electricityTot;
     }
 
-    @Exclude
+
     public String getUid() {
         return uid;
     }
@@ -52,12 +52,11 @@ public class TrajetEntity implements Comparable {
         this.namOfTrip = namOfTrip;
     }
 
-    @Exclude
     public String getDate() {
         return date;
     }
 
-    public void setDate(@NonNull String date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
@@ -133,8 +132,8 @@ public class TrajetEntity implements Comparable {
     public Map<String, Object> toMap() {
         HashMap<String, Object> result = new HashMap<>();
         result.put("name", namOfTrip);
-        result.put("kmTot", kmTot);
         result.put("date", date);
+        result.put("kmTot", kmTot);
         result.put("totRise", totRise);
         result.put("totDeep", totDeep);
         result.put("gasolinTot", gasolinTot);

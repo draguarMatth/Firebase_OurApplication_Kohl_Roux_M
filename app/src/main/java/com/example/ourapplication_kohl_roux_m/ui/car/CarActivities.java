@@ -6,13 +6,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageButton;
 
+import com.example.ourapplication_kohl_roux_m.dbClass.entities.CarEntity;
 import com.google.firebase.auth.FirebaseAuth;
 
 import androidx.annotation.NonNull;
 import androidx.core.view.GravityCompat;
 
 import com.example.ourapplication_kohl_roux_m.R;
-import com.example.ourapplication_kohl_roux_m.dbClass.entity.CarEntity;
 import com.example.ourapplication_kohl_roux_m.ui.BaseActivity;
 import com.example.ourapplication_kohl_roux_m.ui.trajet.ListTrajet_BazActivity;
 import com.example.ourapplication_kohl_roux_m.viewModel.car.CarSingleViewModel;

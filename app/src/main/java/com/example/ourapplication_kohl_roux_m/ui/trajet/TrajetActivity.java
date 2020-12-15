@@ -7,7 +7,7 @@ import android.widget.TextView;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.ourapplication_kohl_roux_m.dbClass.entities.TrajetEntity;
-import com.example.ourapplication_kohl_roux_m.viewModel.trajet.TrajetSingleViewModel;
+import com.example.ourapplication_kohl_roux_m.viewModel.trajet.TrajetSingleViewModelById;
 import com.google.firebase.auth.FirebaseAuth;
 
 import com.example.ourapplication_kohl_roux_m.R;
@@ -24,9 +24,10 @@ public class TrajetActivity extends BaseActivity {
     TextView consoElect;
     TextView consoFuel;
     private Intent previousIntent;
-    private TrajetSingleViewModel viewModel;
+    private TrajetSingleViewModelById viewModel;
     private TrajetEntity trajet;
     private String trajetId;
+    private String carId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +36,7 @@ public class TrajetActivity extends BaseActivity {
         previousIntent = getIntent();
         bundle = previousIntent.getExtras();
         trajetId = (String) bundle.get("TrajetId");
-
+        carId = (String) bundle.get("CarId");
 
         setTitle("Détails Trajet");
         navigationView.setCheckedItem(position);
@@ -47,11 +48,11 @@ public class TrajetActivity extends BaseActivity {
         consoElect = findViewById(R.id.consoElect);
         consoFuel = findViewById(R.id.consoFuel);
 
-        TrajetSingleViewModel.Factory factory = new TrajetSingleViewModel.Factory(
+        TrajetSingleViewModelById.Factory factory = new TrajetSingleViewModelById.Factory(
                 getApplication(),
-                FirebaseAuth.getInstance().getCurrentUser().getUid()
+                trajetId, carId
         );
-        viewModel = new ViewModelProvider(this, factory).get(TrajetSingleViewModel.class);
+        viewModel = new ViewModelProvider(this, factory).get(TrajetSingleViewModelById.class);
         viewModel.getSingleTripviewMod().observe(this, trajetVM -> {
             if (trajetVM != null) {
                 trajet = trajetVM;

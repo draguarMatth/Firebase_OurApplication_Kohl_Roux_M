@@ -44,13 +44,13 @@ public class TrajetListByCarViewModel extends AndroidViewModel {
         return observableTrajets;
     }
 
-    public void deleteTrajetViewModel(final TrajetEntity trajetEntity,
+    public void deleteTrajetViewModel(final TrajetEntity trajetEntity, final String carId,
                                       OnAsyncEventListener callback) {
-        repository.delete(trajetEntity,callback);
+        repository.delete(trajetEntity, carId, callback);
     }
 
-    public void insetTrajet(TrajetEntity trajet, OnAsyncEventListener callback) {
-        repository.insert(trajet, callback);
+    public void insetTrajet(String carId, TrajetEntity trajet, OnAsyncEventListener callback) {
+        repository.insert(carId, trajet, callback);
     }
 
     public static class Factory extends ViewModelProvider.NewInstanceFactory {

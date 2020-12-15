@@ -46,12 +46,12 @@ public class TrajetListViewModel extends AndroidViewModel {
         return observableTrajets;
     }
 
-    public void deleteTrajet(TrajetEntity trajet, OnAsyncEventListener callback) {
-        repository.delete(trajet, callback);
+    public void deleteTrajet(TrajetEntity trajet, String carId, OnAsyncEventListener callback) {
+        repository.delete(trajet, carId, callback);
     }
 
-    public void insetTrajet(TrajetEntity trajet, OnAsyncEventListener callback) {
-        repository.insert(trajet, callback);
+    public void insetTrajet(String carId, TrajetEntity trajet, OnAsyncEventListener callback) {
+        repository.insert(carId, trajet, callback);
     }
 
     /**
